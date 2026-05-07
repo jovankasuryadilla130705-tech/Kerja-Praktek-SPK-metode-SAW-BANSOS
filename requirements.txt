@@ -1,0 +1,14 @@
+# =============================================================================
+#  Dependensi Sistem SPK Bansos Pondok Aren
+# =============================================================================
+#  Instalasi: pip install -r requirements.txt
+# =============================================================================
+
+# Framework Web
+Flask
+Flask-SQLAlchemy
+werkzeug
+
+# Pemrosesan Data & Export Excel
+pandas
+openpyxl

@@ -1,0 +1,304 @@
+<!-- =======================================================================
+  edit_history.html — Halaman Edit Data Histori Klasifikasi
+  ========================================================================
+  Halaman ini memungkinkan admin mengedit data warga yang sudah
+  tersimpan di database. Perubahan kriteria akan menghitung ulang
+  prediksi SAW, kecuali admin memilih override manual.
+
+  Opsi dropdown (kelurahan, status rumah, dll.) di-render secara dinamis
+  dari backend (config.py) melalui variabel Jinja2, sehingga jika ada
+  perubahan daftar kelurahan atau kriteria, cukup edit config.py saja.
+
+  Variabel Jinja2 yang diterima dari backend:
+    - record            : objek ClassificationResult yang sedang diedit
+    - daftar_kelurahan  : list nama kelurahan dari config.DAFTAR_KELURAHAN
+    - opsi_status_rumah : list opsi dari config.OPSI_STATUS_RUMAH
+    - opsi_kondisi_bangunan : list opsi dari config.OPSI_KONDISI_BANGUNAN
+    - opsi_sumber_air   : list opsi dari config.OPSI_SUMBER_AIR
+    - opsi_daya_listrik : list opsi dari config.OPSI_DAYA_LISTRIK
+  ======================================================================= -->
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Histori - SPK Bansos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="bg-slate-50 flex h-screen overflow-hidden">
+
+    <!-- Overlay Sidebar Mobile -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()"
+        class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-20 hidden opacity-0 transition-opacity duration-300 lg:hidden">
+    </div>
+
+    <!-- ===============================================================
+      SIDEBAR — Navigasi Utama Aplikasi
+      =============================================================== -->
+    <aside id="sidebar"
+        class="w-72 bg-white border-r border-gray-200 flex flex-col transition-transform duration-300 z-30 shadow-sm fixed inset-y-0 left-0 transform -translate-x-full lg:relative lg:translate-x-0 h-full">
+        <!-- Logo & Nama Aplikasi -->
+        <div class="h-20 flex items-center justify-between px-8 border-b border-gray-100 shrink-0">
+            <div class="flex items-center gap-3">
+                <img src="{{ url_for('static', filename='asset/logoKecamatanPondokAren.jpg') }}" alt="Logo Pondok Aren" class="h-10 w-auto shadow-sm object-contain">
+                <h1 class="text-xl font-bold text-gray-800 tracking-tight">SPK Bansos</h1>
+            </div>
+            <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-800">
+                <i class="ph ph-x text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Menu Navigasi -->
+        <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1 relative">
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 px-4">Menu Utama</div>
+
+            <a href="{{ url_for('dashboard') }}"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-squares-four text-xl"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+
+            <a href="{{ url_for('classification') }}"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-magic-wand text-xl"></i>
+                <span class="font-medium">Klasifikasi Data</span>
+            </a>
+
+            <a href="{{ url_for('informasi') }}"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-info text-xl"></i>
+                <span class="font-medium">Informasi SPK</span>
+            </a>
+
+
+            <!-- Halaman induk (Histori) aktif -->
+            <a href="{{ url_for('kriteria') }}"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-list-numbers text-xl"></i>
+                <span class="font-medium">Manajemen Kriteria</span>
+            </a>
+
+            <a href="{{ url_for('history') }}"
+                class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl mb-1 bg-blue-50 text-blue-600 font-medium">
+                <i class="ph ph-clock-counter-clockwise text-xl"></i>
+                <span>Manajemen Histori</span>
+            </a>
+        </div>
+
+        <!-- Tombol Logout -->
+        <div class="p-4 border-t border-gray-100 shrink-0">
+            <a href="{{ url_for('logout') }}"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 transition-colors group">
+                <i class="ph ph-sign-out text-xl group-hover:scale-110 transition-transform"></i>
+                <span class="font-medium">Keluar</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ===============================================================
+      KONTEN UTAMA — Form Edit Record
+      =============================================================== -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative w-full">
+
+        <!-- Topbar -->
+        <header
+            class="h-20 bg-white/80 backdrop-blur-md border-b border-gray-200 flex items-center justify-between px-4 lg:px-8 z-10 shrink-0">
+            <div class="flex items-center gap-3 lg:gap-0">
+                <button onclick="toggleSidebar()"
+                    class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors">
+                    <i class="ph ph-list text-2xl"></i>
+                </button>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <!-- Tombol kembali ke halaman Histori -->
+                        <a href="{{ url_for('history') }}"
+                            class="text-gray-400 hover:text-blue-600 transition-colors"><i
+                                class="ph-bold ph-arrow-left text-xl"></i></a>
+                        <h2 class="text-lg lg:text-2xl font-bold text-gray-800">Edit Histori</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profil Admin -->
+                        <!-- Profil Dropdown -->
+            <div class="relative" id="profile-dropdown-container">
+                <div class="flex items-center gap-2 lg:gap-3 cursor-pointer group" onclick="toggleProfileDropdown()">
+                    {% if session.get('foto_profil') %}
+                    <img src="{{ url_for('static', filename=session.get('foto_profil')) }}"
+                        alt="Admin" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full shadow-sm object-cover border-2 border-white">
+                    {% else %}
+                    <img src="https://ui-avatars.com/api/?name={{ session.get('nama_lengkap') or session.get('username', 'Admin') }}&background=2563eb&color=fff&rounded=true"
+                        alt="Admin" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full shadow-sm">
+                    {% endif %}
+                    
+                    <div class="hidden sm:block">
+                        <p class="text-sm font-semibold text-gray-700 leading-tight">{{ (session.get('nama_lengkap') or session.get('username', 'Admin')).title() }}</p>
+                        <p class="text-xs text-blue-600 font-medium tracking-wide">Administrator</p>
+                    </div>
+                    <i class="ph ph-caret-down text-sm text-gray-400 hidden sm:block"></i>
+                </div>
+                
+                <!-- Dropdown Menu -->
+                <div id="profile-dropdown-menu" class="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 hidden z-50 transform origin-top-right transition-all">
+                    <a href="{{ url_for('profil') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                        <i class="ph ph-user-circle text-lg"></i> Profil Saya
+                    </a>
+                    <a href="{{ url_for('ganti_password') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                        <i class="ph ph-lock-key text-lg"></i> Ganti Password
+                    </a>
+                    <a href="{{ url_for('riwayat_login') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors border-b border-gray-100">
+                        <i class="ph ph-clock-counter-clockwise text-lg"></i> Riwayat Login
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                        <i class="ph ph-sign-out text-lg"></i> Keluar
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Area Konten Dinamis -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 relative pb-20">
+
+            <div
+                class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 lg:p-8 max-w-[1200px] animate-fade-in mx-auto">
+                <form action="{{ url_for('edit_record', id=record.id) }}" method="POST" class="space-y-6 lg:space-y-8">
+
+                    <!-- =====================================================
+                      Seksi: Informasi Pribadi (data identitas warga)
+                      ===================================================== -->
+                    <div>
+                        <h3
+                            class="text-base sm:text-lg font-bold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2 border-b border-gray-50 pb-2">
+                            <i class="ph-fill ph-identification-card text-blue-500"></i> Informasi Pribadi
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                            <div>
+                                <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 lg:mb-2">NIK
+                                    <span class="text-red-500">*</span></label>
+                                <input type="text" name="nik" id="nikInput" value="{{ record.nik }}" maxlength="16" inputmode="numeric"
+                                    class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm sm:text-base"
+                                    required>
+                            </div>
+                            <div>
+                                <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 lg:mb-2">No. KK
+                                    <span class="text-red-500">*</span></label>
+                                <input type="text" name="no_kk" id="kkInput" value="{{ record.no_kk }}" maxlength="16" inputmode="numeric"
+                                    class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm sm:text-base"
+                                    required>
+                            </div>
+                            <div>
+                                <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 lg:mb-2">Nama
+                                    Lengkap <span class="text-red-500">*</span></label>
+                                <input type="text" name="nama" id="namaInput" value="{{ record.nama }}"
+                                    class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm sm:text-base"
+                                    required>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 lg:mb-2">Pekerjaan
+                                    <span class="text-red-500">*</span></label>
+                                <input type="text" name="pekerjaan" value="{{ record.pekerjaan }}"
+                                    class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm sm:text-base"
+                                    required>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 lg:mb-2">Alamat
+                                    Lengkap <span class="text-red-500">*</span></label>
+                                <textarea name="alamat"
+                                    class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all min-h-[80px] sm:min-h-[100px] text-sm sm:text-base"
+                                    required>{{ record.alamat }}</textarea>
+                            </div>
+
+                            <!-- Dropdown Kelurahan (dinamis dari config.py)
+                                 Opsi yang sesuai dengan data record saat ini otomatis ter-select -->
+                            <div>
+                                <label
+                                    class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 lg:mb-2">Kelurahan
+                                    <span class="text-red-500">*</span></label>
+                                <select name="kelurahan"
+                                    class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none cursor-pointer text-sm sm:text-base"
+                                    required>
+                                    {% for kel in daftar_kelurahan %}
+                                    <option value="{{ kel }}" {% if record.kelurahan==kel %}selected{% endif %}>{{ kel
+                                        }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seksi: Kriteria Penilaian Kelayakan Bansos -->
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2 border-b border-gray-50 pb-2 mt-2 sm:mt-4">
+                            <i class="ph-fill ph-list-numbers text-blue-500"></i> Kriteria Penilaian
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 bg-blue-50/30 p-4 sm:p-6 rounded-xl border border-blue-50">
+                            {% for krit in daftar_kriteria %}
+                            <div>
+                                <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 lg:mb-2">{{ krit.nama }} <span class="text-red-500">*</span></label>
+                                <select name="kriteria_{{ krit.id }}"
+                                    class="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none cursor-pointer text-sm sm:text-base" required>
+                                    <option value="" disabled>Pilih {{ krit.nama }}...</option>
+                                    {% for sub in krit.sub_kriteria|sort(attribute='skor', reverse=True) %}
+                                        <option value="{{ sub.id }}" {% if skor_terpilih.get(krit.id|string) == sub.skor %}selected{% endif %}>{{ sub.nama }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- =====================================================
+                      Seksi: Override Status Klasifikasi (Opsional)
+                      Admin dapat memaksa hasil menjadi "Layak" atau
+                      "Tidak Layak" tanpa mengikuti perhitungan algoritma.
+                      ===================================================== -->
+                    <div class="mt-4">
+                        <div class="bg-gray-50 border border-gray-200 p-4 rounded-xl">
+                            <label
+                                class="block text-xs sm:text-sm font-semibold text-gray-700 mb-2 flex justify-between">
+                                <span><i class="ph-fill ph-gear mr-1"></i> Override Status Final (Opsional)</span>
+                                <span>Status Sekarang: <b>{{ record.hasil_klasifikasi }}</b></span>
+                            </label>
+                            <p class="text-xs text-gray-500 mb-3">Jika dikosongkan, status akan dihitung ulang secara
+                                otomatis oleh metode SAW.</p>
+                            <select name="override_status"
+                                class="w-full sm:w-1/2 bg-white border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none cursor-pointer text-sm sm:text-base">
+                                <option value="" selected>Otomatis Kalkulasi SAW</option>
+                                <option value="Layak">Tetapkan sebagai Layak</option>
+                                <option value="Tidak Layak">Tetapkan sebagai Tidak Layak</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Aksi Form -->
+                    <div
+                        class="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-gray-100">
+                        <a href="{{ url_for('history') }}"
+                            class="w-full sm:w-auto px-6 py-3 border border-gray-200 text-gray-600 rounded-xl font-medium hover:bg-gray-50 transition-colors text-center">
+                            Batal
+                        </a>
+                        <button type="submit"
+                            class="w-full sm:w-auto px-6 lg:px-8 py-3 bg-blue-600 text-white rounded-xl font-bold shadow-md shadow-blue-500/30 hover:bg-blue-700 transition-all active:scale-95 flex items-center justify-center gap-2">
+                            <i class="ph-bold ph-floppy-disk"></i> Simpan Perubahan
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Custom Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+
+</html>

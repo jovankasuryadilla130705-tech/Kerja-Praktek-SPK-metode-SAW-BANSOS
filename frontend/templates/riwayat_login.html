@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Login - Sistem Klasifikasi Bansos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="bg-slate-50 flex h-screen overflow-hidden">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()"
+        class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-20 hidden opacity-0 transition-opacity duration-300 lg:hidden">
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+        class="w-72 bg-white border-r border-gray-200 flex flex-col transition-transform duration-300 z-30 shadow-sm fixed inset-y-0 left-0 transform -translate-x-full lg:relative lg:translate-x-0 h-full">
+        <div class="h-20 flex items-center justify-between px-8 border-b border-gray-100 shrink-0">
+            <div class="flex items-center gap-3">
+                <img src="{{ url_for('static', filename='asset/logoKecamatanPondokAren.jpg') }}" alt="Logo Pondok Aren" class="h-10 w-auto shadow-sm object-contain">
+                <h1 class="text-xl font-bold text-gray-800 tracking-tight">SPK Bansos</h1>
+            </div>
+            <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-800">
+                <i class="ph ph-x text-2xl"></i>
+            </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1 relative">
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 px-4">Menu Utama</div>
+            <a href="{{ url_for('dashboard') }}" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-squares-four text-xl"></i><span class="font-medium">Dashboard</span>
+            </a>
+            <a href="{{ url_for('classification') }}" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-magic-wand text-xl"></i><span class="font-medium">Klasifikasi Data</span>
+            </a>
+            <a href="{{ url_for('informasi') }}" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-info text-xl"></i><span class="font-medium">Informasi SPK</span>
+            </a>
+            <a href="{{ url_for('kriteria') }}" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-list-numbers text-xl"></i><span class="font-medium">Manajemen Kriteria</span>
+            </a>
+            <a href="{{ url_for('history') }}" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-clock-counter-clockwise text-xl"></i><span class="font-medium">Manajemen Histori</span>
+            </a>
+        </div>
+
+        <div class="p-4 border-t border-gray-100 shrink-0">
+            <a href="{{ url_for('logout') }}"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 transition-colors group">
+                <i class="ph ph-sign-out text-xl group-hover:scale-110 transition-transform"></i>
+                <span class="font-medium">Keluar</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative w-full">
+        <!-- TOPBAR -->
+        <header
+            class="h-20 bg-white/80 backdrop-blur-md border-b border-gray-200 flex items-center justify-between px-4 lg:px-8 z-10 shrink-0">
+            <div class="flex items-center gap-3 lg:gap-0">
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors">
+                    <i class="ph ph-list text-2xl"></i>
+                </button>
+                <div>
+                    <h2 class="text-lg lg:text-2xl font-bold text-gray-800 hidden sm:block">Riwayat Login</h2>
+                    <h2 class="text-lg font-bold text-gray-800 sm:hidden">Log Aktivitas</h2>
+                    <p class="text-xs lg:text-sm text-gray-500 hidden sm:block">Daftar aktivitas login terakhir Anda</p>
+                </div>
+            </div>
+
+            <!-- Profil Dropdown -->
+            <div class="relative" id="profile-dropdown-container">
+                <div class="flex items-center gap-2 lg:gap-3 cursor-pointer group" onclick="toggleProfileDropdown()">
+                    {% if session.get('foto_profil') %}
+                    <img src="{{ url_for('static', filename=session.get('foto_profil')) }}"
+                        alt="Admin" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full shadow-sm object-cover border-2 border-white">
+                    {% else %}
+                    <img src="https://ui-avatars.com/api/?name={{ session.get('nama_lengkap') or session.get('username', 'Admin') }}&background=2563eb&color=fff&rounded=true"
+                        alt="Admin" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full shadow-sm">
+                    {% endif %}
+
+                    <div class="hidden sm:block">
+                        <p class="text-sm font-semibold text-gray-700 leading-tight">{{ (session.get('nama_lengkap') or session.get('username', 'Admin')).title() }}</p>
+                        <p class="text-xs text-blue-600 font-medium tracking-wide">Administrator</p>
+                    </div>
+                    <i class="ph ph-caret-down text-sm text-gray-400 hidden sm:block"></i>
+                </div>
+
+                <!-- Dropdown Menu -->
+                <div id="profile-dropdown-menu" class="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 hidden z-50 transform origin-top-right transition-all">
+                    <a href="{{ url_for('profil') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                        <i class="ph ph-user-circle text-lg"></i> Profil Saya
+                    </a>
+                    <a href="{{ url_for('ganti_password') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                        <i class="ph ph-lock-key text-lg"></i> Ganti Password
+                    </a>
+                    <a href="{{ url_for('riwayat_login') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-blue-600 bg-blue-50 font-medium transition-colors border-b border-gray-100">
+                        <i class="ph ph-clock-counter-clockwise text-lg"></i> Riwayat Login
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                        <i class="ph ph-sign-out text-lg"></i> Keluar
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Content -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 relative pb-20">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 lg:p-8 max-w-4xl mx-auto">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-6 flex items-center gap-2 border-b border-gray-100 pb-3">
+                    <i class="ph-fill ph-clock-counter-clockwise text-blue-600"></i> Aktivitas Login (20 Terakhir)
+                </h3>
+
+                {% if histories %}
+                <div class="space-y-3">
+                    {% for log in histories %}
+                    <div class="flex items-start gap-4 p-4 rounded-xl border border-gray-100 hover:bg-gray-50 transition-colors {% if loop.first %}bg-blue-50/50 border-blue-100{% endif %}">
+                        <!-- Ikon Status -->
+                        <div class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center {% if loop.first %}bg-blue-100 text-blue-600{% else %}bg-gray-100 text-gray-400{% endif %}">
+                            <i class="ph {% if loop.first %}ph-check-circle{% else %}ph-clock{% endif %} text-xl"></i>
+                        </div>
+                        <!-- Detail Login -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex flex-wrap items-center gap-2 mb-1">
+                                <span class="text-sm font-semibold text-gray-800">
+                                    {{ log.login_time.strftime('%d %b %Y, %H:%M:%S') }}
+                                </span>
+                                {% if loop.first %}
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">Sesi Terkini</span>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
+                                <span class="flex items-center gap-1">
+                                    <i class="ph ph-wifi-high text-base"></i>
+                                    {{ log.ip_address or 'IP tidak diketahui' }}
+                                </span>
+                                <span class="flex items-center gap-1 truncate max-w-xs sm:max-w-sm">
+                                    <i class="ph ph-browser text-base shrink-0"></i>
+                                    <span class="truncate">{{ log.user_agent or 'Browser tidak diketahui' }}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <!-- Empty State -->
+                <div class="flex flex-col items-center gap-3 py-16 text-gray-400">
+                    <i class="ph ph-clock-counter-clockwise text-5xl opacity-40"></i>
+                    <p class="text-sm font-medium text-gray-500">Belum ada riwayat login tercatat.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

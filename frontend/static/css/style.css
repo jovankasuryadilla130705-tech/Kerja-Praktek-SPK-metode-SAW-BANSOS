@@ -1,0 +1,150 @@
+/*
+ * ==========================================================================
+ *  style.css — Custom Stylesheet untuk Sistem Klasifikasi Bansos
+ * ==========================================================================
+ *  File ini berisi style kustom yang melengkapi Tailwind CSS (via CDN).
+ *  Tailwind menangani utility classes, sementara file ini menangani:
+ *    1. Typography (font Inter dari Google Fonts)
+ *    2. Scrollbar kustom
+ *    3. Efek glassmorphism
+ *    4. Navigasi sidebar (active state, hover)
+ *    5. Tab navigation (active state)
+ *    6. File input styling
+ * ==========================================================================
+ */
+
+/* --------------------------------------------------------------------------
+ *  1. TYPOGRAPHY — Font Inter dari Google Fonts
+ * --------------------------------------------------------------------------
+ *  Font Inter dipilih karena sangat readable di layar kecil, mendukung
+ *  banyak weight, dan merupakan standar modern untuk UI web.
+ * -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;   /* Anti-aliasing untuk Mac/Chrome */
+    background-color: #f8fafc;              /* Warna Tailwind slate-50 */
+}
+
+
+/* --------------------------------------------------------------------------
+ *  2. CUSTOM SCROLLBAR — Scrollbar minimalis modern
+ * --------------------------------------------------------------------------
+ *  Mengganti scrollbar default browser dengan versi yang lebih tipis dan
+ *  halus. Hanya berfungsi di browser berbasis Webkit (Chrome, Edge, Safari).
+ * -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;  /* Warna abu-abu lembut (Tailwind slate-300) */
+    border-radius: 10px;
+}
+
+
+/* --------------------------------------------------------------------------
+ *  3. GLASSMORPHISM — Efek kaca transparan
+ * --------------------------------------------------------------------------
+ *  Kelas utilitas untuk membuat efek glassmorphism (latar belakang blur
+ *  dengan transparansi). Digunakan pada header topbar.
+ * -------------------------------------------------------------------------- */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+/* --------------------------------------------------------------------------
+ *  4. NAVIGASI SIDEBAR — Hover dan Active State
+ * --------------------------------------------------------------------------
+ *  Mengatur tampilan link navigasi di sidebar. Link yang aktif (halaman
+ *  saat ini) memiliki latar biru muda dengan border kanan biru.
+ * -------------------------------------------------------------------------- */
+.nav-link {
+    transition: all 0.2s ease-in-out;
+}
+.nav-link:hover {
+    background-color: #eff6ff;  /* Tailwind blue-50 */
+    color: #2563eb;              /* Tailwind blue-600 */
+}
+
+/* State aktif — menandakan halaman yang sedang dibuka */
+.nav-link.active {
+    background-color: #eff6ff;
+    color: #2563eb;
+    font-weight: 500;
+    border-right: 3px solid #2563eb;
+}
+.nav-link.active i {
+    color: #2563eb;
+}
+
+
+/* --------------------------------------------------------------------------
+ *  5. TAB NAVIGATION — Active State untuk Tab Switcher
+ * --------------------------------------------------------------------------
+ *  Digunakan di halaman Klasifikasi untuk berpindah antara tab
+ *  "Input Manual" dan "Import Massal".
+ * -------------------------------------------------------------------------- */
+.tab-active {
+    border-bottom: 2px solid #2563eb;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+
+/* --------------------------------------------------------------------------
+ *  6. FILE INPUT — Kustomisasi Tombol Upload File
+ * --------------------------------------------------------------------------
+ *  Mengubah tampilan tombol default <input type="file"> agar konsisten
+ *  dengan desain UI (warna biru, border radius, hover effect).
+ * -------------------------------------------------------------------------- */
+input[type="file"]::file-selector-button {
+    font-weight: 500;
+    color: white;
+    background-color: #2563eb;    /* Tailwind blue-600 */
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    margin-right: 1rem;
+    transition: background-color 0.2s;
+}
+input[type="file"]::file-selector-button:hover {
+    background-color: #1d4ed8;    /* Tailwind blue-700 */
+}
+
+
+/* --------------------------------------------------------------------------
+ *  7. PROFILE DROPDOWN — Pastikan dropdown profil selalu tampil di atas tabel
+ * --------------------------------------------------------------------------
+ *  Phosphor Icons merender pseudo-elements yang kadang overflow secara visual
+ *  ke luar elemen induknya. Kelas ini memastikan topbar dan dropdown-nya
+ *  selalu berada paling atas.
+ * -------------------------------------------------------------------------- */
+header {
+    position: relative;
+    isolation: isolate;
+}
+
+#profile-dropdown-menu {
+    z-index: 9999 !important;
+}
+
+/* Pastikan badge status di tabel tidak overflow ke luar batas sel */
+#history-table-body td {
+    position: relative;
+    overflow: visible;
+}
+
+/* Ikon Phosphor dalam badge status tidak boleh overflow ke atas */
+#history-table-body span.whitespace-nowrap {
+    position: relative;
+    overflow: hidden;
+}

@@ -1,0 +1,263 @@
+<!-- =======================================================================
+  history.html — Halaman Manajemen Histori Klasifikasi
+  ========================================================================
+  Menampilkan tabel riwayat seluruh data warga yang telah diklasifikasi.
+  Fitur halaman ini:
+    - Pencarian berdasarkan NIK, Nama, atau Kelurahan
+    - Hapus satu record atau hapus semua
+    - Edit record (redirect ke edit_history.html)
+    - Export seluruh data ke Excel
+  ======================================================================= -->
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histori - SPK Bansos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="bg-slate-50 flex h-screen overflow-hidden">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()"
+        class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-20 hidden opacity-0 transition-opacity duration-300 lg:hidden">
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="w-72 bg-white border-r border-gray-200 flex flex-col transition-transform duration-300 z-30 shadow-sm fixed inset-y-0 left-0 transform -translate-x-full lg:relative lg:translate-x-0 h-full">
+        <div class="h-20 flex items-center justify-between px-8 border-b border-gray-100 shrink-0">
+            <div class="flex items-center gap-3">
+                <img src="{{ url_for('static', filename='asset/logoKecamatanPondokAren.jpg') }}" alt="Logo Pondok Aren" class="h-10 w-auto shadow-sm object-contain">
+                <h1 class="text-xl font-bold text-gray-800 tracking-tight">SPK Bansos</h1>
+            </div>
+            <!-- Close button for mobile -->
+            <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-800">
+                <i class="ph ph-x text-2xl"></i>
+            </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1 relative">
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 px-4">Menu Utama</div>
+
+            <a href="{{ url_for('dashboard') }}"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-squares-four text-xl"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+
+            <a href="{{ url_for('classification') }}"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-magic-wand text-xl"></i>
+                <span class="font-medium">Klasifikasi Data</span>
+            </a>
+
+            <a href="{{ url_for('informasi') }}"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-info text-xl"></i>
+                <span class="font-medium">Informasi SPK</span>
+            </a>
+
+            <a href="{{ url_for('kriteria') }}"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-gray-600 hover:bg-gray-50 transition-colors">
+                <i class="ph ph-list-numbers text-xl"></i>
+                <span class="font-medium">Manajemen Kriteria</span>
+            </a>
+
+            <a href="{{ url_for('history') }}"
+                class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl mb-1 bg-blue-50 text-blue-600 font-medium">
+                <i class="ph ph-clock-counter-clockwise text-xl"></i>
+                <span>Manajemen Histori</span>
+            </a>
+        </div>
+
+        <div class="p-4 border-t border-gray-100 shrink-0">
+            <a href="{{ url_for('logout') }}"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 transition-colors group">
+                <i class="ph ph-sign-out text-xl group-hover:scale-110 transition-transform"></i>
+                <span class="font-medium">Keluar</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative w-full">
+        <!-- Topbar -->
+        <header
+            class="h-20 bg-white/80 backdrop-blur-md border-b border-gray-200 flex items-center justify-between px-4 lg:px-8 z-10 shrink-0">
+            <div class="flex items-center gap-3 lg:gap-0">
+                <button onclick="toggleSidebar()"
+                    class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors">
+                    <i class="ph ph-list text-2xl"></i>
+                </button>
+                <div>
+                    <h2 class="text-lg lg:text-2xl font-bold text-gray-800 hidden sm:block">Manajemen Histori</h2>
+                    <h2 class="text-lg font-bold text-gray-800 sm:hidden">Histori Data</h2>
+                    <p class="text-xs lg:text-sm text-gray-500 hidden sm:block">Daftar riwayat klasifikasi warga
+                        penerima bantuan</p>
+                </div>
+            </div>
+
+                        <!-- Profil Dropdown -->
+            <div class="relative" id="profile-dropdown-container">
+                <div class="flex items-center gap-2 lg:gap-3 cursor-pointer group" onclick="toggleProfileDropdown()">
+                    {% if session.get('foto_profil') %}
+                    <img src="{{ url_for('static', filename=session.get('foto_profil')) }}"
+                        alt="Admin" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full shadow-sm object-cover border-2 border-white">
+                    {% else %}
+                    <img src="https://ui-avatars.com/api/?name={{ session.get('nama_lengkap') or session.get('username', 'Admin') }}&background=2563eb&color=fff&rounded=true"
+                        alt="Admin" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full shadow-sm">
+                    {% endif %}
+                    
+                    <div class="hidden sm:block">
+                        <p class="text-sm font-semibold text-gray-700 leading-tight">{{ (session.get('nama_lengkap') or session.get('username', 'Admin')).title() }}</p>
+                        <p class="text-xs text-blue-600 font-medium tracking-wide">Administrator</p>
+                    </div>
+                    <i class="ph ph-caret-down text-sm text-gray-400 hidden sm:block"></i>
+                </div>
+                
+                <!-- Dropdown Menu -->
+                <div id="profile-dropdown-menu" class="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 hidden z-50 transform origin-top-right transition-all">
+                    <a href="{{ url_for('profil') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                        <i class="ph ph-user-circle text-lg"></i> Profil Saya
+                    </a>
+                    <a href="{{ url_for('ganti_password') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                        <i class="ph ph-lock-key text-lg"></i> Ganti Password
+                    </a>
+                    <a href="{{ url_for('riwayat_login') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors border-b border-gray-100">
+                        <i class="ph ph-clock-counter-clockwise text-lg"></i> Riwayat Login
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                        <i class="ph ph-sign-out text-lg"></i> Keluar
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Content -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 relative pb-20">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div
+                class="mb-4 p-4 rounded-xl text-sm font-medium {% if category == 'error' %}bg-red-100 text-red-700 border border-red-200{% else %}bg-emerald-100 text-emerald-700 border border-emerald-200{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <!-- ===============================================================
+              KONTROL: Pencarian & Tombol Aksi (Hapus Semua, Export)
+              =============================================================== -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+
+                <div
+                    class="p-4 sm:p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gray-50 flex-shrink-0">
+                    <!-- Search Bar -->
+                    <div class="relative w-full sm:w-96 flex">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                            <i class="ph ph-magnifying-glass text-xl"></i>
+                        </div>
+                        <input type="text" id="searchInput" name="search" value="{{ search_query|default('') }}"
+                            class="pl-10 pr-10 block w-full border border-gray-200 rounded-xl px-4 py-2.5 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm font-medium text-sm sm:text-base"
+                            placeholder="Cari NIK, Nama, atau Kelurahan...">
+                        <button type="button" id="clearSearchBtn" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-red-500 hidden">
+                            <i class="ph-bold ph-x text-lg"></i>
+                        </button>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                        <form action="{{ url_for('delete_all') }}" method="POST"
+                            onsubmit="return confirm('PERINGATAN! Anda yakin ingin menghapus SELURUH data histori? Tindakan ini tidak dapat dibatalkan.');"
+                            class="w-full sm:w-auto">
+                            <button type="submit"
+                                class="flex items-center justify-center gap-2 px-6 py-2.5 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 shadow-sm transition-colors border-none w-full sm:w-auto text-sm sm:text-base">
+                                <i class="ph-bold ph-trash text-xl"></i> Hapus Semua
+                            </button>
+                        </form>
+                        <a href="/export/excel?kelurahan=all" id="export-btn"
+                            class="flex items-center justify-center gap-2 px-6 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 shadow-sm transition-colors border-none sm:w-auto w-full text-sm sm:text-base">
+                            <i class="ph-bold ph-file-xls text-xl"></i> Export Excel
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ===============================================================
+                  FILTER KELURAHAN
+                  =============================================================== -->
+                <div id="filter-container" class="p-4 border-b border-gray-100 flex gap-2 overflow-x-auto whitespace-nowrap bg-white custom-scrollbar">
+                    <button class="filter-btn active px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors" data-filter="all">Semua Data</button>
+                    <button class="filter-btn px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors" data-filter="Pondok Aren">Pondok Aren</button>
+                    <button class="filter-btn px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors" data-filter="Pondok Karya">Pondok Karya</button>
+                    <button class="filter-btn px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors" data-filter="Pondok Jaya">Pondok Jaya</button>
+                    <button class="filter-btn px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors" data-filter="Pondok Betung">Pondok Betung</button>
+                    <button class="filter-btn px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors" data-filter="Pondok Pucung">Pondok Pucung</button>
+                    <button class="filter-btn px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors" data-filter="Pondok Kacang Barat">Pondok Kacang Barat</button>
+                    <button class="filter-btn px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors" data-filter="Pondok Kacang Timur">Pondok Kacang Timur</button>
+                    <button class="filter-btn px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors" data-filter="Perigi Lama">Perigi Lama</button>
+                    <button class="filter-btn px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors" data-filter="Perigi Baru">Perigi Baru</button>
+                    <button class="filter-btn px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors" data-filter="Jurang Mangu Barat">Jurang Mangu Barat</button>
+                    <button class="filter-btn px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors" data-filter="Jurang Mangu Timur">Jurang Mangu Timur</button>
+                </div>
+
+                <!-- ===============================================================
+                  TABEL DATA HISTORI
+                  Mendukung scroll horizontal di layar kecil (mobile).
+                  =============================================================== -->
+                <div class="overflow-x-auto w-full -webkit-overflow-scrolling-touch">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
+                        <thead>
+                            <tr class="bg-gray-50 text-gray-600 text-[10px] sm:text-sm border-b border-gray-200">
+                                <th class="py-3 sm:py-4 px-4 sm:px-6 font-semibold uppercase tracking-wider text-center">Rank</th>
+                                <th class="py-3 sm:py-4 px-4 sm:px-6 font-semibold uppercase tracking-wider">Tgl / Waktu
+                                </th>
+                                <th class="py-3 sm:py-4 px-4 sm:px-6 font-semibold uppercase tracking-wider">NIK / Nama
+                                </th>
+                                <th class="py-3 sm:py-4 px-4 sm:px-6 font-semibold uppercase tracking-wider">Kelurahan
+                                </th>
+                                <th class="py-3 sm:py-4 px-4 sm:px-6 font-semibold uppercase tracking-wider w-48">Detail Kriteria
+                                </th>
+                                <th
+                                    class="py-3 sm:py-4 px-4 sm:px-6 font-semibold uppercase tracking-wider text-center">
+                                    Skor & Hasil</th>
+                                <th class="py-3 sm:py-4 px-4 sm:px-6 font-semibold uppercase tracking-wider">
+                                    Alasan/Keterangan</th>
+                                <th
+                                    class="py-3 sm:py-4 px-4 sm:px-6 font-semibold uppercase tracking-wider text-center">
+                                    Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body" class="divide-y divide-gray-100 bg-white text-gray-700">
+                            <!-- Data akan dirender oleh JavaScript melalui fetch /api/history -->
+                        </tbody>
+                    </table>
+                </div>
+
+                {% if results %}
+                <!-- Pagination -->
+                <div
+                    class="px-4 sm:px-6 py-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between text-xs sm:text-sm text-gray-600 gap-4 flex-shrink-0">
+                    <div class="text-center sm:text-left">Menampilkan seluruh entri</div>
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Custom Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
