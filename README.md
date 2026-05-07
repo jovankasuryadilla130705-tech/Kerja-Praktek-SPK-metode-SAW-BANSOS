@@ -35,6 +35,10 @@ python app.py
 http://127.0.0.1:5000
 ```
 
+Catatan:
+- Jika `DATABASE_URL` tidak diisi, aplikasi otomatis memakai `SQLite`.
+- Ini cocok untuk penggunaan lokal, demo, dan deployment sederhana seperti PythonAnywhere.
+
 ## Catatan Keamanan Sebelum Upload ke GitHub
 
 - Jangan unggah file `.env`.
@@ -53,58 +57,75 @@ Lihat `.gitignore`. File itu sudah disiapkan agar file runtime dan data lokal ti
 - Jika ingin dijadikan `Public`, pastikan database lokal tidak ikut terunggah.
 - Setelah akun admin berhasil masuk, pertimbangkan mengganti password admin melalui aplikasi.
 
-## Deploy Gratis ke Render dengan Supabase Postgres
+## Deploy ke PythonAnywhere dengan SQLite
 
-Pendekatan ini cocok jika Anda tidak memiliki kartu pembayaran dan ingin data tetap tersimpan.
+Pendekatan ini paling cocok jika Anda ingin tetap memakai `SQLite` agar sesuai dengan laporan proyek.
 
-### 1. Buat Web Service
+### 1. Buat akun dan Web App
 
-Di Render Dashboard:
+Di PythonAnywhere:
 
-1. Klik `New` > `Web Service`.
-2. Hubungkan repository GitHub ini.
-3. Gunakan pengaturan berikut:
+1. Buat akun lalu login.
+2. Buka menu `Web`.
+3. Klik `Add a new web app`.
+4. Pilih `Manual configuration`.
+5. Pilih versi Python yang tersedia, misalnya Python 3.10 atau 3.11.
 
-- Runtime: `Python`
-- Build Command: `pip install -r requirements.txt`
-- Start Command: `gunicorn --chdir backend app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 300`
+### 2. Unggah kode proyek
 
-### 2. Buat Project Database di Supabase
+Ada dua cara:
 
-Di Supabase:
+1. Clone dari GitHub di Bash console PythonAnywhere.
+2. Atau upload zip proyek lalu extract.
 
-1. Buat project baru.
-2. Buka menu `Connect`.
-3. Ambil connection string PostgreSQL.
-4. Pastikan format URL mengandung `sslmode=require`.
+Jika memakai GitHub, biasanya langkahnya seperti ini:
 
-### 3. Tambahkan Environment Variables di Render
+```bash
+git clone https://github.com/jovankasuryadilla130705-tech/Kerja-Praktek-SPK-metode-SAW-BANSOS.git
+cd Kerja-Praktek-SPK-metode-SAW-BANSOS
+pip3.10 install --user -r requirements.txt
+```
 
-Isi variabel ini di Render:
+Sesuaikan `pip3.10` dengan versi Python yang Anda pilih di PythonAnywhere.
 
-- `SPK_SECRET_KEY`: isi dengan string acak panjang
-- `SPK_DEFAULT_ADMIN_USERNAME`: misalnya `admin`
-- `SPK_DEFAULT_ADMIN_PASSWORD`: password awal admin
-- `DATABASE_URL`: connection string PostgreSQL dari Supabase
+### 3. Konfigurasi environment lokal
 
-Opsional:
+Buat file `.env` di root proyek, lalu isi misalnya:
 
-- `FLASK_DEBUG`: kosongkan atau isi `0`
+```text
+SPK_SECRET_KEY=ganti-dengan-secret-random
+SPK_DEFAULT_ADMIN_USERNAME=admin
+SPK_DEFAULT_ADMIN_PASSWORD=password-admin-awal
+FLASK_DEBUG=0
+```
 
-### 4. Hal yang Perlu Diketahui
+Jangan isi `DATABASE_URL` jika ingin tetap memakai SQLite.
 
-- Render `free web service` masih bisa sleep saat idle, jadi akses pertama bisa terasa lambat.
-- Database utama sekarang sebaiknya disimpan di Supabase, bukan SQLite lokal.
-- Import massal tetap akan lebih berat daripada input manual karena diproses di server dalam satu request.
-- Foto profil yang diunggah ke filesystem lokal hosting gratis tetap tidak persisten. Jadi data inti aman, tetapi upload file lokal belum ideal untuk hosting gratis.
+### 4. Atur file WSGI
 
-### 5. Setelah Deploy Berhasil
+Gunakan file contoh [pythonanywhere_wsgi.py](C:\Jovankasd\kerja praktek\Sistem Klasifikasi bansos(Final)\pythonanywhere_wsgi.py:1) sebagai referensi untuk isi file WSGI PythonAnywhere Anda.
 
-Setelah aplikasi online:
+Intinya:
+- arahkan `project_home` ke folder proyek Anda di PythonAnywhere
+- load `app` dari `backend/app.py`
 
-1. Coba login dengan akun admin awal.
-2. Tambahkan 1 data manual.
-3. Refresh halaman histori.
-4. Redeploy service dari Render lalu cek lagi apakah data masih ada.
+### 5. Atur Static Files
 
-Jika data tetap ada setelah redeploy, berarti koneksi ke Supabase sudah bekerja dengan benar.
+Di tab `Web` PythonAnywhere, tambahkan static mapping:
+
+- URL: `/static/`
+- Directory: `/home/NAMA_ANDA/Kerja-Praktek-SPK-metode-SAW-BANSOS/frontend/static/`
+
+Ganti `NAMA_ANDA` dengan username PythonAnywhere Anda.
+
+### 6. Reload dan uji aplikasi
+
+Setelah WSGI dan static file selesai:
+
+1. Klik `Reload`
+2. Buka URL aplikasi Anda
+3. Login dengan akun admin
+4. Tambahkan data manual
+5. Cek histori
+
+Jika data tetap ada setelah reload web app, berarti SQLite berjalan normal di PythonAnywhere.
