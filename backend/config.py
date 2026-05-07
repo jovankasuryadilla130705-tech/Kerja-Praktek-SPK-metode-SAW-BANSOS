@@ -43,12 +43,18 @@ load_local_env()
 # Untuk repo publik, jangan simpan nilai rahasia asli di source code.
 SECRET_KEY = os.environ.get('SPK_SECRET_KEY', 'dev-secret-change-this-before-production')
 
-# Lokasi database SQLite. Format: 'sqlite:///path/ke/file.db'
-# Jika SPK_DATA_DIR diisi (misalnya pada Render), database dan file upload
-# dipindahkan ke folder persistent tersebut agar tidak hilang saat redeploy.
+# Prioritaskan database URL dari environment variable untuk deployment
+# (misalnya Supabase Postgres). Jika tidak ada, fallback ke SQLite lokal.
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, '..'))
 DATA_DIR = os.environ.get('SPK_DATA_DIR', '').strip()
+RAW_DATABASE_URL = (
+    os.environ.get('DATABASE_URL', '').strip()
+    or os.environ.get('SUPABASE_DB_URL', '').strip()
+)
+
+if RAW_DATABASE_URL.startswith('postgres://'):
+    RAW_DATABASE_URL = 'postgresql://' + RAW_DATABASE_URL[len('postgres://'):]
 
 if DATA_DIR:
     DATABASE_DIR = os.path.join(DATA_DIR, 'database')
@@ -57,7 +63,10 @@ else:
     DATABASE_DIR = os.path.join(BASE_DIR, 'database')
     UPLOAD_FOLDER = os.path.join(PROJECT_ROOT, 'uploads')
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(DATABASE_DIR, 'penduduk.db')
+SQLALCHEMY_DATABASE_URI = RAW_DATABASE_URL or (
+    'sqlite:///' + os.path.join(DATABASE_DIR, 'penduduk.db')
+)
+USING_SQLITE = SQLALCHEMY_DATABASE_URI.startswith('sqlite')
 
 # Menonaktifkan notifikasi perubahan objek SQLAlchemy (menghemat memori).
 SQLALCHEMY_TRACK_MODIFICATIONS = False

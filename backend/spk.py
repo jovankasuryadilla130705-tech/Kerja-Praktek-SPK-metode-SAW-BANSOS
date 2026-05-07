@@ -1,78 +1,23 @@
 """
 =============================================================================
- spk.py — Modul Perhitungan Sistem Pendukung Keputusan (SAW) Dinamis
+ spk.py - Modul Perhitungan Sistem Pendukung Keputusan (SAW) Dinamis
 =============================================================================
- File ini berisi seluruh logika perhitungan SPK untuk menentukan kelayakan
- penerima Bantuan Sosial (Bansos) dengan Kriteria Dinamis.
+ File ini berisi logika perhitungan SPK yang independen dari jenis database.
+ Data kriteria dan data warga dikirim dari app.py setelah diambil lewat ORM.
 =============================================================================
 """
 
-import sqlite3
-import json
 import config
 
 
-def get_kriteria_dari_db(db_path):
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-    try:
-        cursor.execute("SELECT * FROM kriteria")
-        kriteria = [dict(row) for row in cursor.fetchall()]
-        
-        # Ambil max skor untuk setiap kriteria dari tabel sub_kriteria
-        for k in kriteria:
-            cursor.execute("SELECT MAX(skor) as max_skor FROM sub_kriteria WHERE kriteria_id = ?", (k['id'],))
-            row = cursor.fetchone()
-            k['max_skor'] = row['max_skor'] if row and row['max_skor'] else 5
-    except sqlite3.OperationalError:
-        kriteria = []
-    conn.close()
-    return kriteria
-
-
-def get_data_from_db(db_path):
-    """
-    Mengambil seluruh data warga dari database SQLite.
-    Untuk data lama, jika kriteria_details kosong, kita buat fallback
-    (walaupun tidak 100% akurat untuk kriteria dinamis).
-    """
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-
-    try:
-        cursor.execute("SELECT * FROM classification_results")
-        baris_data = cursor.fetchall()
-        data_numerik = []
-
-        for baris in baris_data:
-            details_str = baris['kriteria_details']
-            skor_dinamis = {}
-            if details_str:
-                try:
-                    skor_dinamis = json.loads(details_str)
-                except:
-                    pass
-            
-            data_numerik.append({
-                'id': baris['id'],
-                'nama': baris['nama'],
-                'nik': baris['nik'],
-                'skor_dinamis': skor_dinamis,  # dict of str(kriteria_id) -> skor
-            })
-    except sqlite3.OperationalError:
-        data_numerik = []
-
-    conn.close()
-    return data_numerik
-
-
-def hitung_saw(data, db_path):
+def hitung_saw(data, kriteria_list):
     """
     Menghitung skor SAW dengan kriteria dinamis.
+
+    Args:
+        data (list[dict]): Data warga/calon dalam format numerik.
+        kriteria_list (list[dict]): Daftar kriteria beserta bobot dan max_skor.
     """
-    kriteria_list = get_kriteria_dari_db(db_path)
     if not data or not kriteria_list:
         return []
 
@@ -80,26 +25,23 @@ def hitung_saw(data, db_path):
     for d in data:
         d_copy = dict(d)
         skor_saw = 0.0
-        
+
         for k in kriteria_list:
             k_id = str(k['id'])
-            nilai = float(d['skor_dinamis'].get(k_id, 3)) # fallback 3
-            max_skor = float(k.get('max_skor', 5))
-            
-            # Guard: hindari pembagi nol jika tidak ada sub-kriteria
+            nilai = float(d['skor_dinamis'].get(k_id, 3))
+            max_skor = float(k.get('max_skor', 5) or 5)
+
             if max_skor == 0:
                 max_skor = 5.0
-            
-            # Berdasarkan instruksi: Cost dan Benefit sama-sama menggunakan nilai / max_skor
-            # karena nilai Cost sudah "dibalik" skornya di database (1=Kaya, 5=Miskin)
+
+            # Skor cost di database sudah dibalik (1 kaya, 5 miskin),
+            # jadi normalisasi cukup nilai / max_skor untuk semua kriteria.
             r = nilai / max_skor
-                
-            skor_saw += r * k['bobot']
+            skor_saw += r * float(k['bobot'])
 
         d_copy['skor_saw'] = round(skor_saw, 4)
         hasil_saw.append(d_copy)
 
-    # Urutkan
     hasil_saw.sort(key=lambda x: x.get('skor_saw', 0), reverse=True)
     return hasil_saw
 
@@ -109,32 +51,29 @@ def generate_alasan_dinamis(item, kriteria_list, status_kelayakan):
     for k in kriteria_list:
         skor = float(item['skor_dinamis'].get(str(k['id']), 3))
         if k['tipe'] == 'Cost':
-            r = (5.0 - skor) / 4.0 
+            r = (5.0 - skor) / 4.0
         else:
             r = (skor - 1.0) / 4.0
         relatif.append((k['nama'], r))
-        
+
     relatif.sort(key=lambda x: x[1], reverse=True)
-    
+
     if not relatif:
         return ""
-        
+
     if status_kelayakan == config.LABEL_LAYAK:
         if len(relatif) >= 2:
             return f"Sangat layak karena memiliki skor baik pada kriteria {relatif[0][0]} dan {relatif[1][0]}."
-        else:
-            return f"Sangat layak pada kriteria {relatif[0][0]}."
-    else:
-        if len(relatif) >= 2:
-            return f"Kurang layak karena nilai rendah pada kriteria {relatif[-1][0]} dan {relatif[-2][0]}."
-        else:
-            return f"Kurang layak pada kriteria {relatif[-1][0]}."
+        return f"Sangat layak pada kriteria {relatif[0][0]}."
+
+    if len(relatif) >= 2:
+        return f"Kurang layak karena nilai rendah pada kriteria {relatif[-1][0]} dan {relatif[-2][0]}."
+    return f"Kurang layak pada kriteria {relatif[-1][0]}."
 
 
-def tentukan_kelayakan(hasil_saw, db_path):
-    kriteria_list = get_kriteria_dari_db(db_path)
+def tentukan_kelayakan(hasil_saw, kriteria_list):
     hasil_final = []
-    
+
     for item in hasil_saw:
         skor_saw = item.get('skor_saw', 0)
 
@@ -153,9 +92,10 @@ def tentukan_kelayakan(hasil_saw, db_path):
     hasil_final.sort(key=lambda x: x.get('skor_saw', 0), reverse=True)
     return hasil_final
 
-def hitung_status_kelayakan_dinamis(data_spk, id_target, db_path):
-    hasil_saw = hitung_saw(data_spk, db_path)
-    hasil_final = tentukan_kelayakan(hasil_saw, db_path)
+
+def hitung_status_kelayakan_dinamis(data_spk, id_target, kriteria_list):
+    hasil_saw = hitung_saw(data_spk, kriteria_list)
+    hasil_final = tentukan_kelayakan(hasil_saw, kriteria_list)
 
     for item in hasil_final:
         if str(item['id']) == str(id_target):

@@ -53,9 +53,9 @@ Lihat `.gitignore`. File itu sudah disiapkan agar file runtime dan data lokal ti
 - Jika ingin dijadikan `Public`, pastikan database lokal tidak ikut terunggah.
 - Setelah akun admin berhasil masuk, pertimbangkan mengganti password admin melalui aplikasi.
 
-## Deploy ke Render dengan SQLite Persisten
+## Deploy Gratis ke Render dengan Supabase Postgres
 
-Pendekatan ini cocok untuk proyek Anda saat ini karena aplikasi masih memakai Flask + SQLite.
+Pendekatan ini cocok jika Anda tidak memiliki kartu pembayaran dan ingin data tetap tersimpan.
 
 ### 1. Buat Web Service
 
@@ -69,29 +69,23 @@ Di Render Dashboard:
 - Build Command: `pip install -r requirements.txt`
 - Start Command: `gunicorn --chdir backend app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 300`
 
-### 2. Tambahkan Persistent Disk
+### 2. Buat Project Database di Supabase
 
-Masih di halaman service Render:
+Di Supabase:
 
-1. Tambahkan `Persistent Disk`.
-2. Gunakan mount path:
+1. Buat project baru.
+2. Buka menu `Connect`.
+3. Ambil connection string PostgreSQL.
+4. Pastikan format URL mengandung `sslmode=require`.
 
-```text
-/opt/render/project/src/render_data
-```
-
-3. Pilih ukuran disk paling kecil dulu, misalnya `1 GB`.
-
-Catatan: menurut dokumentasi Render, filesystem normal bersifat ephemeral dan hanya data di bawah mount path disk yang akan tetap ada setelah restart atau redeploy.
-
-### 3. Tambahkan Environment Variables
+### 3. Tambahkan Environment Variables di Render
 
 Isi variabel ini di Render:
 
 - `SPK_SECRET_KEY`: isi dengan string acak panjang
 - `SPK_DEFAULT_ADMIN_USERNAME`: misalnya `admin`
 - `SPK_DEFAULT_ADMIN_PASSWORD`: password awal admin
-- `SPK_DATA_DIR`: `/opt/render/project/src/render_data`
+- `DATABASE_URL`: connection string PostgreSQL dari Supabase
 
 Opsional:
 
@@ -99,9 +93,10 @@ Opsional:
 
 ### 4. Hal yang Perlu Diketahui
 
-- Render `free web service` tidak cocok untuk SQLite persisten karena free service tidak mendukung persistent disk dan bisa spin down. Jika ingin data tetap ada, gunakan instance berbayar yang mendukung disk.
+- Render `free web service` masih bisa sleep saat idle, jadi akses pertama bisa terasa lambat.
+- Database utama sekarang sebaiknya disimpan di Supabase, bukan SQLite lokal.
 - Import massal tetap akan lebih berat daripada input manual karena diproses di server dalam satu request.
-- Konfigurasi proyek ini sudah diarahkan agar database SQLite dan file upload admin disimpan ke folder persistent tersebut.
+- Foto profil yang diunggah ke filesystem lokal hosting gratis tetap tidak persisten. Jadi data inti aman, tetapi upload file lokal belum ideal untuk hosting gratis.
 
 ### 5. Setelah Deploy Berhasil
 
@@ -112,4 +107,4 @@ Setelah aplikasi online:
 3. Refresh halaman histori.
 4. Redeploy service dari Render lalu cek lagi apakah data masih ada.
 
-Jika data tetap ada setelah redeploy, berarti persistent disk sudah bekerja dengan benar.
+Jika data tetap ada setelah redeploy, berarti koneksi ke Supabase sudah bekerja dengan benar.

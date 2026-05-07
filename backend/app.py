@@ -49,7 +49,6 @@ import json
 
 import config
 from spk import (
-    get_data_from_db,
     hitung_status_kelayakan_dinamis,
 )
 
@@ -73,8 +72,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config.SQLALCHEMY_TRACK_MODIFICAT
 app.config['UPLOAD_FOLDER'] = config.UPLOAD_FOLDER
 app.config['DB_INIT_ERROR'] = None
 
-# Pastikan folder database ada.
-if not os.path.exists(config.DATABASE_DIR):
+# Pastikan folder database lokal ada saat memakai SQLite.
+if config.USING_SQLITE and not os.path.exists(config.DATABASE_DIR):
     os.makedirs(config.DATABASE_DIR)
 
 # Hubungkan SQLAlchemy dengan aplikasi Flask.
@@ -362,6 +361,43 @@ def database_siaga():
     return not app.config.get('DB_INIT_ERROR')
 
 
+def get_kriteria_spk_payload():
+    """Ambil kriteria dalam format ringan untuk modul perhitungan SAW."""
+    daftar = []
+    for krit in Kriteria.query.order_by(Kriteria.id).all():
+        max_skor = 5
+        if krit.sub_kriteria:
+            max_skor = max((sub.skor for sub in krit.sub_kriteria), default=5)
+        daftar.append({
+            'id': krit.id,
+            'nama': krit.nama,
+            'tipe': krit.tipe,
+            'bobot': krit.bobot,
+            'max_skor': max_skor,
+        })
+    return daftar
+
+
+def get_data_spk_tersimpan():
+    """Ambil data hasil klasifikasi tersimpan dalam format input modul SAW."""
+    data_numerik = []
+    for record in ClassificationResult.query.all():
+        skor_dinamis = {}
+        if record.kriteria_details:
+            try:
+                skor_dinamis = json.loads(record.kriteria_details)
+            except Exception:
+                skor_dinamis = {}
+
+        data_numerik.append({
+            'id': record.id,
+            'nama': record.nama,
+            'nik': record.nik,
+            'skor_dinamis': skor_dinamis,
+        })
+    return data_numerik
+
+
 @app.context_processor
 def inject_template_helpers():
     """Sediakan helper kecil untuk template Jinja."""
@@ -387,7 +423,7 @@ def redirect_jika_database_bermasalah(target_endpoint):
         return None
 
     flash(
-        'Database belum siap digunakan. Periksa file SQLite aplikasi terlebih dahulu.',
+        'Database belum siap digunakan. Periksa koneksi database aplikasi terlebih dahulu.',
         'error'
     )
     return redirect(url_for(target_endpoint))
@@ -496,26 +532,6 @@ def baca_dataframe_upload(file_storage):
     return pd.read_excel(file_storage.stream), ekstensi
 
 
-def resolve_db_path():
-    """
-    Menentukan path absolut ke file database SQLite untuk digunakan
-    oleh modul SPK (yang membutuhkan path langsung, bukan URI SQLAlchemy).
-
-    Returns:
-        str: Path absolut ke file penduduk.db
-    """
-    db_uri = app.config.get('SQLALCHEMY_DATABASE_URI', '')
-    db_path = db_uri.replace('sqlite:///', '')
-
-    # Jika path tidak absolut, gunakan fallback ke lokasi default.
-    if not os.path.isabs(db_path):
-        db_path = os.path.join(config.DATABASE_DIR, 'penduduk.db')
-
-    return db_path
-
-
-
-
 # ===========================================================================
 #  ROUTE: AUTENTIKASI (Login, Logout)
 # ===========================================================================
@@ -536,7 +552,7 @@ def login_page():
 def health_check():
     """
     Endpoint ringan untuk mengecek kesiapan aplikasi dan database.
-    Berguna untuk diagnosa tanpa harus membuka file SQLite manual.
+    Berguna untuk diagnosa tanpa harus membuka panel database secara manual.
     """
     status_code = 200 if database_siaga() else 503
     return jsonify({
@@ -750,8 +766,8 @@ def classification():
                     df, _ = baca_dataframe_upload(file)
 
                     # Ambil data SPK dari database sekali saja (optimasi).
-                    db_path = resolve_db_path()
-                    data_spk = get_data_from_db(db_path)
+                    data_spk = get_data_spk_tersimpan()
+                    kriteria_payload = get_kriteria_spk_payload()
                     kriteria_list = Kriteria.query.all()
                     subkriteria_map = {}
                     for sub in SubKriteria.query.all():
@@ -813,7 +829,11 @@ def classification():
                         }
 
                         data_kalkulasi = data_spk + [item_numerik_baru]
-                        hasil, alasan, skor_saw = hitung_status_kelayakan_dinamis(data_kalkulasi, 'NEW', db_path)
+                        hasil, alasan, skor_saw = hitung_status_kelayakan_dinamis(
+                            data_kalkulasi,
+                            'NEW',
+                            kriteria_payload,
+                        )
 
                         # Update data baseline agar iterasi massal akurat.
                         item_numerik_baru['id'] = len(data_spk) + 10000
@@ -866,8 +886,8 @@ def classification():
                 flash('No. KK harus 16 digit angka', 'error')
                 return redirect(url_for('classification'))
 
-            db_path = resolve_db_path()
-            data_spk = get_data_from_db(db_path)
+            data_spk = get_data_spk_tersimpan()
+            kriteria_payload = get_kriteria_spk_payload()
 
             item_numerik_baru = {
                 'id': 'NEW',
@@ -878,7 +898,11 @@ def classification():
             data_spk.append(item_numerik_baru)
 
             # Hitung status kelayakan menggunakan SAW.
-            hasil, alasan, skor_saw = hitung_status_kelayakan_dinamis(data_spk, 'NEW', db_path)
+            hasil, alasan, skor_saw = hitung_status_kelayakan_dinamis(
+                data_spk,
+                'NEW',
+                kriteria_payload,
+            )
 
             # Kumpulkan data identitas dari form.
             data_identitas = {
@@ -1185,8 +1209,8 @@ def edit_record(id):
         input_klasifikasi = extract_input_klasifikasi(request.form)
 
         # Hitung ulang prediksi berdasarkan data baru.
-        db_path = resolve_db_path()
-        data_spk = get_data_from_db(db_path)
+        data_spk = get_data_spk_tersimpan()
+        kriteria_payload = get_kriteria_spk_payload()
 
         # Hapus data lama dari list untuk digantikan data yang diperbarui.
         data_spk = [d for d in data_spk if d['id'] != record.id]
@@ -1201,7 +1225,11 @@ def edit_record(id):
         data_spk.append(item_diperbarui)
 
         # Hitung ulang status kelayakan dengan data yang sudah diperbarui.
-        hasil, alasan, skor_saw = hitung_status_kelayakan_dinamis(data_spk, record.id, db_path)
+        hasil, alasan, skor_saw = hitung_status_kelayakan_dinamis(
+            data_spk,
+            record.id,
+            kriteria_payload,
+        )
 
         # Cek apakah admin memilih untuk override hasil secara manual.
         manual_override = request.form.get('override_status')
