@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: kerja-praktek-spk-bansos
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --chdir backend app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 300
+    envVars:
+      - key: SPK_SECRET_KEY
+        sync: false
+      - key: SPK_DEFAULT_ADMIN_USERNAME
+        value: admin
+      - key: SPK_DEFAULT_ADMIN_PASSWORD
+        sync: false
+      - key: SPK_DATA_DIR
+        value: /opt/render/project/src/render_data
+      - key: FLASK_DEBUG
+        value: "0"
+    disk:
+      name: spk-data
+      mountPath: /opt/render/project/src/render_data
+      sizeGB: 1

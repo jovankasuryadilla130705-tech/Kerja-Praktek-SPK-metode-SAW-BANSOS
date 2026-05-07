@@ -34,7 +34,7 @@
 
 from flask import (
     Flask, render_template, request, redirect,
-    url_for, flash, session, send_file, jsonify
+    url_for, flash, session, send_file, jsonify, send_from_directory
 )
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
@@ -345,9 +345,35 @@ def is_logged_in():
     return 'user_id' in session
 
 
+def build_profile_photo_url(path_foto, nama_fallback=None):
+    """Bangun URL foto profil dari storage persistent atau avatar fallback."""
+    if path_foto:
+        return url_for('media_file', filename=path_foto)
+
+    nama = (nama_fallback or 'Admin').strip() or 'Admin'
+    return (
+        'https://ui-avatars.com/api/?name='
+        f'{nama}&background=2563eb&color=fff&rounded=true'
+    )
+
+
 def database_siaga():
     """Mengecek apakah database berhasil diinisialisasi."""
     return not app.config.get('DB_INIT_ERROR')
+
+
+@app.context_processor
+def inject_template_helpers():
+    """Sediakan helper kecil untuk template Jinja."""
+    return {
+        'profile_photo_url': build_profile_photo_url,
+    }
+
+
+@app.route('/media/<path:filename>')
+def media_file(filename):
+    """Sajikan file upload dari folder persistent aplikasi."""
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
 def redirect_jika_database_bermasalah(target_endpoint):
@@ -590,12 +616,11 @@ def profil():
             file = request.files['foto_profil']
             if file and file.filename != '':
                 filename = secure_filename(f"{user.id}_{datetime.now().strftime('%Y%m%d%H%M%S')}_{file.filename}")
-                # Simpan foto di dalam static agar bisa diakses via url_for('static')
-                profiles_dir = os.path.join(app.static_folder, 'uploads', 'profiles')
+                profiles_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'profiles')
                 os.makedirs(profiles_dir, exist_ok=True)
                 filepath = os.path.join(profiles_dir, filename)
                 file.save(filepath)
-                user.foto_profil = f"uploads/profiles/{filename}"
+                user.foto_profil = f"profiles/{filename}"
                 
         db.session.commit()
         
@@ -1334,4 +1359,5 @@ if __name__ == '__main__':
     # Debug diaktifkan hanya jika diminta lewat environment variable agar
     # perilaku default lebih aman untuk repo yang dibagikan.
     debug_mode = os.environ.get('FLASK_DEBUG', '').strip().lower() in ('1', 'true', 'yes')
-    app.run(debug=debug_mode, use_reloader=False, port=5000)
+    port = int(os.environ.get('PORT', '5000'))
+    app.run(debug=debug_mode, use_reloader=False, host='0.0.0.0', port=port)

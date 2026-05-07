@@ -44,16 +44,23 @@ load_local_env()
 SECRET_KEY = os.environ.get('SPK_SECRET_KEY', 'dev-secret-change-this-before-production')
 
 # Lokasi database SQLite. Format: 'sqlite:///path/ke/file.db'
-# Database disimpan di folder backend/database/ agar terpisah dari kode.
+# Jika SPK_DATA_DIR diisi (misalnya pada Render), database dan file upload
+# dipindahkan ke folder persistent tersebut agar tidak hilang saat redeploy.
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-DATABASE_DIR = os.path.join(BASE_DIR, 'database')
+PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, '..'))
+DATA_DIR = os.environ.get('SPK_DATA_DIR', '').strip()
+
+if DATA_DIR:
+    DATABASE_DIR = os.path.join(DATA_DIR, 'database')
+    UPLOAD_FOLDER = os.path.join(DATA_DIR, 'uploads')
+else:
+    DATABASE_DIR = os.path.join(BASE_DIR, 'database')
+    UPLOAD_FOLDER = os.path.join(PROJECT_ROOT, 'uploads')
+
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(DATABASE_DIR, 'penduduk.db')
 
 # Menonaktifkan notifikasi perubahan objek SQLAlchemy (menghemat memori).
 SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-# Folder untuk menyimpan file upload dari fitur Import Massal.
-UPLOAD_FOLDER = os.path.join(BASE_DIR, '..', 'uploads')
 
 
 # ---------------------------------------------------------------------------

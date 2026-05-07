@@ -76,13 +76,8 @@
                         <!-- Profil Dropdown -->
             <div class="relative" id="profile-dropdown-container">
                 <div class="flex items-center gap-2 lg:gap-3 cursor-pointer group" onclick="toggleProfileDropdown()">
-                    {% if session.get('foto_profil') %}
-                    <img src="{{ url_for('static', filename=session.get('foto_profil')) }}"
+                    <img src="{{ profile_photo_url(session.get('foto_profil'), session.get('nama_lengkap') or session.get('username', 'Admin')) }}"
                         alt="Admin" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full shadow-sm object-cover border-2 border-white">
-                    {% else %}
-                    <img src="https://ui-avatars.com/api/?name={{ session.get('nama_lengkap') or session.get('username', 'Admin') }}&background=2563eb&color=fff&rounded=true"
-                        alt="Admin" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full shadow-sm">
-                    {% endif %}
                     
                     <div class="hidden sm:block">
                         <p class="text-sm font-semibold text-gray-700 leading-tight">{{ (session.get('nama_lengkap') or session.get('username', 'Admin')).title() }}</p>
