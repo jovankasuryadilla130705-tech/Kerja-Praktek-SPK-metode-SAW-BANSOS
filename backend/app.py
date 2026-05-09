@@ -1099,7 +1099,12 @@ def history():
 
     # Urutkan dari yang terbaru dan kirim ke template.
     results = query.order_by(ClassificationResult.created_at.desc()).all()
-    return render_template('history.html', results=results, search_query=search_query)
+    return render_template(
+        'history.html',
+        results=results,
+        search_query=search_query,
+        daftar_kelurahan=config.DAFTAR_KELURAHAN,
+    )
 
 
 @app.route('/api/history')
