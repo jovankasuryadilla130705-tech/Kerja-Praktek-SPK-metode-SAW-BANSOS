@@ -257,9 +257,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==================================================================
     
     var historyTableBody = document.getElementById('history-table-body');
-    var filterButtons = document.querySelectorAll('.filter-btn');
+    var kelurahanFilter = document.getElementById('kelurahan-filter');
     
-    if (historyTableBody && filterButtons.length > 0) {
+    if (historyTableBody && kelurahanFilter) {
         
         var currentKelurahan = 'all';
         var currentSearch = '';
@@ -396,29 +396,21 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Setup event listener untuk tombol filter
-        filterButtons.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                // Hapus class active dari semua tombol
-                filterButtons.forEach(b => {
-                    b.classList.remove('active', 'bg-blue-600', 'text-white');
-                    b.classList.add('bg-gray-100', 'text-gray-700');
-                });
-                
-                // Tambahkan class active ke tombol yang diklik
-                this.classList.remove('bg-gray-100', 'text-gray-700');
-                this.classList.add('active', 'bg-blue-600', 'text-white');
-                
-                currentKelurahan = this.getAttribute('data-filter');
-                fetchHistory(currentKelurahan, currentSearch);
-                updateExportUrl();
-            });
+        kelurahanFilter.addEventListener('change', function() {
+            currentKelurahan = this.value;
+            fetchHistory(currentKelurahan, currentSearch);
+            updateExportUrl();
         });
 
         // Setup Search functionality with debounce
         var searchInput = document.getElementById('searchInput');
         var clearSearchBtn = document.getElementById('clearSearchBtn');
         var searchTimeout = null;
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var initialKelurahan = urlParams.get('kelurahan') || 'all';
+        currentKelurahan = initialKelurahan;
+        kelurahanFilter.value = initialKelurahan;
 
         if (searchInput && clearSearchBtn) {
             searchInput.addEventListener('input', function(e) {
@@ -446,7 +438,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             // Set initial state
-            var urlParams = new URLSearchParams(window.location.search);
             var initialSearch = urlParams.get('search') || '';
             if (initialSearch) {
                 currentSearch = initialSearch;
