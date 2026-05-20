@@ -197,6 +197,37 @@ Struktur folder utama:
 - `docs/` berisi dokumentasi metodologi proyek
 - `uploads/` berisi file unggahan saat aplikasi berjalan
 
+## Menjalankan Proyek
+
+### 1. Siapkan dependensi Python
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Siapkan dependensi frontend
+
+```bash
+npm install
+```
+
+### 3. Build Tailwind CSS lokal
+
+```bash
+npm run build
+```
+
+Perintah ini akan menghasilkan file `frontend/static/css/tailwind.css` yang
+digunakan oleh seluruh halaman aplikasi tanpa ketergantungan pada CDN
+Tailwind.
+
+### 4. Jalankan aplikasi Flask
+
+```bash
+cd backend
+python app.py
+```
+
 ## Modul Penting
 
 - [backend/app.py](backend/app.py)

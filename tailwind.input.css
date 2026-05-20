@@ -1,0 +1,11 @@
+/* =============================================================================
+   tailwind.input.css — Entry point untuk Tailwind CSS Build
+   =============================================================================
+   File ini adalah INPUT untuk Tailwind CLI. Jangan tambahkan style apapun
+   di sini karena ini hanya pintu masuk direktif Tailwind.
+   Output final akan disimpan di: frontend/static/css/tailwind.css
+   ============================================================================= */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -65,6 +65,19 @@ app = Flask(
     static_folder='../frontend/static',
 )
 
+
+@app.route('/favicon.ico')
+def favicon():
+    """
+    Layani favicon dari aset logo yang sudah dipakai UI agar browser
+    tidak lagi meminta /favicon.ico yang berujung 404.
+    """
+    return send_from_directory(
+        app.static_folder,
+        'asset/logoKecamatanPondokAren.jpg',
+        mimetype='image/jpeg',
+    )
+
 # Muat konfigurasi dari config.py
 app.config['SECRET_KEY'] = config.SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = config.SQLALCHEMY_DATABASE_URI
