@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build": "npx tailwindcss -i ./tailwind.input.css -o ./frontend/static/css/tailwind.css --minify",
+    "build:tailwind": "npm run build"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}
