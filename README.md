@@ -323,8 +323,8 @@ Contoh isi:
 
 ```env
 SPK_SECRET_KEY=ganti-dengan-secret-random
-SPK_DEFAULT_ADMIN_USERNAME=admin
-SPK_DEFAULT_ADMIN_PASSWORD=password-admin-awal
+SPK_DEFAULT_ADMIN_USERNAME=adminusername
+SPK_DEFAULT_ADMIN_PASSWORD=adminpassword
 FLASK_DEBUG=0
 ```
 
