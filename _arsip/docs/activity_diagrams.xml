@@ -1,0 +1,972 @@
+<mxfile host="app.diagrams.net" modified="2026-06-17T12:00:00.000Z" agent="Draw.io" version="24.0.0" type="device">
+
+  <!-- ================================================================== -->
+  <!--  TAB 1: PROSES LOGIN                                               -->
+  <!-- ================================================================== -->
+  <diagram id="tab-login" name="1. Proses Login">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- JUDUL -->
+        <mxCell id="title" value="ACTIVITY DIAGRAM — PROSES LOGIN" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="10" width="600" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- POOL -->
+        <mxCell id="pool" value="" style="shape=pool;startSize=0;horizontal=1;childLayout=stackLayout;horizontalStack=1;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;swimlaneHead=0;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="50" width="800" height="800" as="geometry"/>
+        </mxCell>
+
+        <!-- SWIMLANE: Admin -->
+        <mxCell id="sw-admin" value="Admin" style="swimlane;startSize=25;fillColor=#dae8fc;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="0" y="0" width="400" height="800" as="geometry"/>
+        </mxCell>
+
+        <!-- SWIMLANE: Sistem -->
+        <mxCell id="sw-sistem" value="Sistem" style="swimlane;startSize=25;fillColor=#d5e8d4;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="400" y="0" width="400" height="800" as="geometry"/>
+        </mxCell>
+
+        <!-- START -->
+        <mxCell id="L01" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="50" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L02" value="Membuka Halaman Login" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="125" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L03" value="Menampilkan Form Login" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="125" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L04" value="Memasukkan Username&#xa;dan Password" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="215" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L05" value="Klik Tombol Login" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="305" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L06" value="Memverifikasi Username&#xa;dan Password di Database" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="305" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- DECISION: Valid? -->
+        <mxCell id="L07" value="Kredensial&#xa;Valid?" style="rhombus;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="150" y="400" width="90" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L08" value="Menampilkan&#xa;Pesan Error" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="15" y="420" width="120" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L09" value="Menyimpan Session &amp;&#xa;Mencatat Riwayat Login" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="520" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L10" value="Menampilkan&#xa;Halaman Dashboard" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="615" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- END -->
+        <mxCell id="L11" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="175" y="710" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="Le01" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L01" target="L02" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Le02" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L02" target="L03" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Le03" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L03" target="L04" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Le04" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L04" target="L05" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Le05" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L05" target="L06" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Le06" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L06" target="L07" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Le07" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L07" target="L08" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Le08" value="Ya" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L07" target="L09" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Le09" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L08" target="L04" parent="pool">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="425" y="480"/>
+              <mxPoint x="425" y="200"/>
+              <mxPoint x="220" y="200"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Le10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L09" target="L10" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Le11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L10" target="L11" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  TAB 2: PROSES KLASIFIKASI MANUAL                                  -->
+  <!-- ================================================================== -->
+  <diagram id="tab-klasifikasi-manual" name="2. Proses Klasifikasi Manual">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="ACTIVITY DIAGRAM — PROSES KLASIFIKASI MANUAL DATA WARGA" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="10" width="800" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pool" value="" style="shape=pool;startSize=0;horizontal=1;childLayout=stackLayout;horizontalStack=1;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;swimlaneHead=0;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="50" width="800" height="1210" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-admin" value="Admin" style="swimlane;startSize=25;fillColor=#dae8fc;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="0" y="0" width="400" height="1210" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-sistem" value="Sistem" style="swimlane;startSize=25;fillColor=#d5e8d4;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="400" y="0" width="400" height="1210" as="geometry"/>
+        </mxCell>
+
+        <!-- START -->
+        <mxCell id="KM01" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="50" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM02" value="Membuka Menu&#xa;Klasifikasi Data" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="130" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM03" value="Menampilkan Halaman&#xa;Klasifikasi (Tab Manual)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="130" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM04" value="Mengisi Data Identitas Warga&#xa;(NIK, No KK, Nama,&#xa;Pekerjaan, Alamat, Kelurahan)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="90" y="230" width="210" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM05" value="Memilih Nilai Sub-Kriteria&#xa;(C1–C7: Penghasilan, Jumlah&#xa;Tanggungan, Kepemilikan Aset,&#xa;Status Rumah, Kondisi Bangunan,&#xa;Daya Listrik, Sumber Air)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="85" y="345" width="220" height="95" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM06" value="Klik Tombol&#xa;&quot;Klasifikasikan&quot;" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="490" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM07" value="Validasi Format&#xa;NIK &amp; No KK&#xa;(harus 16 digit angka)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="490" width="170" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision: Format Valid? -->
+        <mxCell id="KM08" value="Format&#xa;Valid?" style="rhombus;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="155" y="600" width="80" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM09" value="Menampilkan&#xa;Pesan Error" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="15" y="618" width="120" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM10" value="Mengambil Semua Data&#xa;Warga dari Database&#xa;sebagai Baseline SAW" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="720" width="170" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM11" value="Menghitung Skor SAW&#xa;(Normalisasi Matriks ×&#xa;Bobot Kriteria C1–C7)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="830" width="170" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM12" value="Menentukan Status Kelayakan&#xa;(Layak / Tidak Layak)&#xa;berdasarkan Threshold SAW" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="940" width="170" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM13" value="Menyimpan Hasil&#xa;Klasifikasi ke Database" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="1055" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="KM14" value="Redirect ke Halaman Histori&#xa;+ Flash Pesan Sukses" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="1145" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- END -->
+        <mxCell id="KM15" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="1140" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="KMe01" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM01" target="KM02" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe02" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM02" target="KM03" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe03" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM03" target="KM04" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe04" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM04" target="KM05" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe05" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM05" target="KM06" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe06" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM06" target="KM07" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe07" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM07" target="KM08" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe08" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM08" target="KM09" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe09" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM09" target="KM04" parent="pool">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="425" y="685"/>
+              <mxPoint x="425" y="215"/>
+              <mxPoint x="195" y="215"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KMe10" value="Ya" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM08" target="KM10" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM10" target="KM11" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM11" target="KM12" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM12" target="KM13" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM13" target="KM14" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="KMe15" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="KM14" target="KM15" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  TAB 3: PROSES IMPORT MASSAL DAN KLASIFIKASI BATCH                 -->
+  <!-- ================================================================== -->
+  <diagram id="tab-import-batch" name="3. Proses Import Massal dan Klasifikasi Batch">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1500" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="ACTIVITY DIAGRAM — PROSES IMPORT MASSAL DAN KLASIFIKASI BATCH" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="10" width="900" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pool" value="" style="shape=pool;startSize=0;horizontal=1;childLayout=stackLayout;horizontalStack=1;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;swimlaneHead=0;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="50" width="800" height="1420" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-admin" value="Admin" style="swimlane;startSize=25;fillColor=#dae8fc;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="0" y="0" width="400" height="1420" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-sistem" value="Sistem" style="swimlane;startSize=25;fillColor=#d5e8d4;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="400" y="0" width="400" height="1420" as="geometry"/>
+        </mxCell>
+
+        <!-- START -->
+        <mxCell id="IB01" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="50" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB02" value="Membuka Menu&#xa;Klasifikasi Data" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="130" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB03" value="Memilih Tab&#xa;&quot;Import Massal&quot;" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="220" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB04" value="Menampilkan Form&#xa;Upload File&#xa;(Excel / CSV)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="220" width="170" height="55" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB05" value="Memilih File Excel / CSV&#xa;dan Klik Upload" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="320" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB06" value="Validasi Format File&#xa;(.csv, .xls, .xlsx)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="320" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision: Format File Valid? -->
+        <mxCell id="IB07" value="Format&#xa;File Valid?" style="rhombus;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="150" y="415" width="90" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB08" value="Menampilkan Pesan&#xa;Error Format File" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="15" y="435" width="120" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB09" value="Membaca File ke&#xa;DataFrame (Pandas)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="535" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB10" value="Validasi NIK &amp; No KK&#xa;Setiap Baris&#xa;(16 digit angka)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="630" width="170" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision: Data Valid? -->
+        <mxCell id="IB11" value="Data Baris&#xa;Valid?" style="rhombus;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="150" y="740" width="90" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB12" value="Rollback &amp; Tampilkan&#xa;Pesan Error Detail Baris" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="15" y="758" width="120" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB13" value="Memetakan Nilai Kolom&#xa;ke Sub-Kriteria (C1–C7)&#xa;untuk Setiap Baris" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="865" width="170" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB14" value="Menghitung Skor SAW &amp;&#xa;Menentukan Kelayakan&#xa;untuk Setiap Baris&#xa;(Iterasi Loop)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="985" width="170" height="75" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB15" value="Menyimpan Semua Record&#xa;ke Database&#xa;(Batch Commit)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="1115" width="170" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="IB16" value="Redirect ke Histori&#xa;+ Flash &quot;Sukses N Data&quot;" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="1225" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- END -->
+        <mxCell id="IB17" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="1330" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="IBe01" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB01" target="IB02" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe02" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB02" target="IB03" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe03" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB03" target="IB04" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe04" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB04" target="IB05" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe05" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB05" target="IB06" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe06" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB06" target="IB07" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe07" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB07" target="IB08" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe08" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB08" target="IB05" parent="pool">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="425" y="510"/>
+              <mxPoint x="425" y="310"/>
+              <mxPoint x="220" y="310"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IBe09" value="Ya" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB07" target="IB09" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB09" target="IB10" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB10" target="IB11" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe12" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB11" target="IB12" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe12b" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB12" target="IB05" parent="pool">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="425" y="830"/>
+              <mxPoint x="425" y="310"/>
+              <mxPoint x="220" y="310"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IBe13" value="Ya" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB11" target="IB13" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB13" target="IB14" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe15" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB14" target="IB15" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe16" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB15" target="IB16" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="IBe17" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="IB16" target="IB17" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  TAB 4: PROSES FILTER, PENCARIAN, DAN EKSPOR HISTORI               -->
+  <!-- ================================================================== -->
+  <diagram id="tab-filter-ekspor" name="4. Proses Filter, Pencarian, dan Ekspor Histori">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="ACTIVITY DIAGRAM — PROSES FILTER, PENCARIAN, DAN EKSPOR HISTORI" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="10" width="900" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pool" value="" style="shape=pool;startSize=0;horizontal=1;childLayout=stackLayout;horizontalStack=1;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;swimlaneHead=0;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="50" width="800" height="1020" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-admin" value="Admin" style="swimlane;startSize=25;fillColor=#dae8fc;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="0" y="0" width="400" height="1020" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-sistem" value="Sistem" style="swimlane;startSize=25;fillColor=#d5e8d4;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="400" y="0" width="400" height="1020" as="geometry"/>
+        </mxCell>
+
+        <!-- START -->
+        <mxCell id="FE01" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="50" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="FE02" value="Membuka Halaman&#xa;Histori Data" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="130" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="FE03" value="Mengambil Semua Data&#xa;Histori dari Database&#xa;(Urut Terbaru)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="130" width="170" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="FE04" value="Menampilkan Daftar&#xa;Histori Klasifikasi" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="235" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision: Aksi? -->
+        <mxCell id="FE05" value="Pilih&#xa;Aksi?" style="rhombus;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="145" y="240" width="100" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Branch A: Pencarian -->
+        <mxCell id="FE06" value="Memasukkan Kata Kunci&#xa;Pencarian&#xa;(NIK / Nama / Kelurahan)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="10" y="380" width="165" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="FE07" value="Memfilter Data Sesuai&#xa;Kata Kunci (ILIKE)&#xa;+ Tampilkan Hasil" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="15" y="390" width="165" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Branch B: Export -->
+        <mxCell id="FE08" value="(Opsional) Memilih Filter&#xa;Kelurahan / Kata Kunci&#xa;lalu Klik &quot;Export Excel&quot;" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="220" y="380" width="170" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="FE09" value="Mengambil Data Sesuai&#xa;Filter dari Database" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="220" y="390" width="165" height="55" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="FE10" value="Memetakan Sub-Kriteria&#xa;ke Label (Lookup)&#xa;lalu Buat File .xlsx" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="220" y="490" width="165" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="FE11" value="Mengirim File Excel&#xa;sebagai Download&#xa;ke Browser Admin" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="220" y="605" width="165" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="FE12" value="Menerima &amp; Menyimpan&#xa;File Excel" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="220" y="720" width="165" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Merge / Selesai -->
+        <mxCell id="FE13" value="Melihat / Menggunakan&#xa;Hasil Data Histori" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="840" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- END -->
+        <mxCell id="FE14" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="930" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="FEe01" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE01" target="FE02" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="FEe02" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE02" target="FE03" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="FEe03" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE03" target="FE04" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="FEe04" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE04" target="FE05" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="FEe05" value="Cari" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE05" target="FE06" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="FEe06" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE06" target="FE07" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="FEe07" value="Export" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE05" target="FE08" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="FEe08" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE08" target="FE09" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="FEe09" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE09" target="FE10" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="FEe10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE10" target="FE11" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="FEe11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE11" target="FE12" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="FEe12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE07" target="FE13" parent="pool">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="97" y="820"/>
+              <mxPoint x="195" y="820"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FEe13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE12" target="FE13" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="302" y="820"/>
+              <mxPoint x="195" y="820"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FEe14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="FE13" target="FE14" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  TAB 5: PROSES EDIT HISTORI DAN OVERRIDE STATUS                    -->
+  <!-- ================================================================== -->
+  <diagram id="tab-edit-override" name="5. Proses Edit Histori dan Override Status">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1350" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="ACTIVITY DIAGRAM — PROSES EDIT HISTORI DAN OVERRIDE STATUS" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="10" width="900" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pool" value="" style="shape=pool;startSize=0;horizontal=1;childLayout=stackLayout;horizontalStack=1;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;swimlaneHead=0;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="50" width="800" height="1270" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-admin" value="Admin" style="swimlane;startSize=25;fillColor=#dae8fc;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="0" y="0" width="400" height="1270" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-sistem" value="Sistem" style="swimlane;startSize=25;fillColor=#d5e8d4;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="400" y="0" width="400" height="1270" as="geometry"/>
+        </mxCell>
+
+        <!-- START -->
+        <mxCell id="ED01" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="50" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ED02" value="Membuka Halaman&#xa;Histori Data" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="130" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ED03" value="Klik Tombol &quot;Edit&quot;&#xa;pada Record" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="220" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ED04" value="Mengambil Data Record&#xa;dari Database &amp;&#xa;Menampilkan Form Edit&#xa;dengan Data Terkini" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="220" width="170" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ED05" value="Mengubah Data Identitas&#xa;dan / atau Nilai&#xa;Sub-Kriteria (C1–C7)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="105" y="345" width="180" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Override (opsional) -->
+        <mxCell id="ED05b" value="(Opsional) Memilih Override&#xa;Status Manual&#xa;(Layak / Tidak Layak)" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="105" y="460" width="180" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ED06" value="Klik Tombol&#xa;&quot;Simpan Perubahan&quot;" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="570" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ED07" value="Validasi Format&#xa;NIK &amp; No KK&#xa;(16 digit angka)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="570" width="170" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision: Format Valid? -->
+        <mxCell id="ED08" value="Format&#xa;Valid?" style="rhombus;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="155" y="675" width="80" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ED09" value="Menampilkan&#xa;Pesan Error" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="15" y="692" width="120" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ED10" value="Menghitung Ulang&#xa;Skor SAW dengan&#xa;Data yang Diperbarui" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="800" width="170" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision: Ada Override? -->
+        <mxCell id="ED11" value="Ada&#xa;Override?" style="rhombus;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="155" y="915" width="80" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ED12" value="Pakai Status&#xa;Override Manual" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="265" y="932" width="120" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ED13" value="Update Record&#xa;di Database" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="1050" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ED14" value="Redirect ke Histori&#xa;+ Flash Pesan Sukses" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="1145" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- END -->
+        <mxCell id="ED15" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="1190" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="EDe01" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED01" target="ED02" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe02" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED02" target="ED03" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe03" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED03" target="ED04" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe04" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED04" target="ED05" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe04b" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED05" target="ED05b" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe05" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED05b" target="ED06" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe06" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED06" target="ED07" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe07" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED07" target="ED08" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe08" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED08" target="ED09" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe09" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED09" target="ED05" parent="pool">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="425" y="755"/>
+              <mxPoint x="425" y="330"/>
+              <mxPoint x="195" y="330"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EDe10" value="Ya" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED08" target="ED10" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED10" target="ED11" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe12" value="Ya" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED11" target="ED12" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe12b" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED12" target="ED13" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="325" y="1030"/>
+              <mxPoint x="195" y="1030"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EDe13" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED11" target="ED13" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED13" target="ED14" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="EDe15" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="ED14" target="ED15" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  TAB 6: PROSES MANAJEMEN KRITERIA DAN SUB-KRITERIA                 -->
+  <!-- ================================================================== -->
+  <diagram id="tab-kriteria" name="6. Proses Manajemen Kriteria dan Sub-Kriteria">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1150" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="ACTIVITY DIAGRAM — PROSES MANAJEMEN KRITERIA DAN SUB-KRITERIA" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="10" width="900" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pool" value="" style="shape=pool;startSize=0;horizontal=1;childLayout=stackLayout;horizontalStack=1;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;swimlaneHead=0;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="50" width="800" height="1070" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-admin" value="Admin" style="swimlane;startSize=25;fillColor=#dae8fc;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="0" y="0" width="400" height="1070" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-sistem" value="Sistem" style="swimlane;startSize=25;fillColor=#d5e8d4;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="400" y="0" width="400" height="1070" as="geometry"/>
+        </mxCell>
+
+        <!-- START -->
+        <mxCell id="MK01" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="50" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="MK02" value="Membuka Menu&#xa;Kriteria" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="110" y="130" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="MK03" value="Menampilkan Daftar Kriteria,&#xa;Bobot, Tipe &amp; Total Bobot" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="130" width="170" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision: Kelola Kriteria atau Sub-Kriteria? -->
+        <mxCell id="MK04" value="Kelola&#xa;Apa?" style="rhombus;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="145" y="240" width="100" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- === CABANG KRITERIA === -->
+        <mxCell id="MK05" value="Memilih Aksi Kriteria&#xa;(Tambah / Edit / Hapus)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="10" y="385" width="160" height="55" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="MK06" value="Validasi Total Bobot&#xa;Semua Kriteria (≤ 1.0)&#xa;[khusus Tambah &amp; Edit]" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="10" y="395" width="165" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision: Bobot Valid? -->
+        <mxCell id="MK07" value="Total Bobot&#xa;Valid?" style="rhombus;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="35" y="510" width="90" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="MK08" value="Tampilkan&#xa;Error Bobot" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="155" y="528" width="110" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="MK09" value="Simpan Perubahan&#xa;Kriteria ke Database" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="15" y="635" width="160" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- === CABANG SUB-KRITERIA === -->
+        <mxCell id="MK10" value="Membuka Halaman&#xa;Sub-Kriteria&#xa;(Pilih Kriteria)" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="230" y="385" width="160" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="MK11" value="Menampilkan Daftar&#xa;Sub-Kriteria Beserta&#xa;Skor" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="220" y="395" width="165" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="MK12" value="Memilih Aksi Sub-Kriteria&#xa;(Tambah / Edit / Hapus)&#xa;lalu Submit" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="225" y="510" width="160" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="MK13" value="Simpan Perubahan&#xa;Sub-Kriteria ke Database" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="220" y="635" width="165" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- Merge: Flash Sukses -->
+        <mxCell id="MK14" value="Menampilkan Flash&#xa;Pesan Sukses &amp;&#xa;Refresh Halaman" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="750" width="170" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- END -->
+        <mxCell id="MK15" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="175" y="870" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="MKe01" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK01" target="MK02" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe02" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK02" target="MK03" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe03" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK03" target="MK04" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe04" value="Kriteria" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK04" target="MK05" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe05" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK05" target="MK06" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe06" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK06" target="MK07" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe07" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK07" target="MK08" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe08" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK08" target="MK05" parent="pool">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="665" y="590"/>
+              <mxPoint x="665" y="370"/>
+              <mxPoint x="90" y="370"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MKe09" value="Ya" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK07" target="MK09" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe10" value="Sub-Kriteria" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK04" target="MK10" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK10" target="MK11" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK11" target="MK12" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK12" target="MK13" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="MKe14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK09" target="MK14" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="95" y="725"/>
+              <mxPoint x="195" y="725"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MKe15" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK13" target="MK14" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="302" y="725"/>
+              <mxPoint x="195" y="725"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MKe16" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="MK14" target="MK15" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  TAB 7: PROSES LOGOUT                                              -->
+  <!-- ================================================================== -->
+  <diagram id="tab-logout" name="7. Proses Logout">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="550" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="ACTIVITY DIAGRAM — PROSES LOGOUT" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="10" width="600" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pool" value="" style="shape=pool;startSize=0;horizontal=1;childLayout=stackLayout;horizontalStack=1;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;swimlaneHead=0;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="50" width="800" height="470" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-admin" value="Admin" style="swimlane;startSize=25;fillColor=#dae8fc;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="0" y="0" width="400" height="470" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw-sistem" value="Sistem" style="swimlane;startSize=25;fillColor=#d5e8d4;strokeColor=#000000;fontStyle=1;fontSize=11;" vertex="1" parent="pool">
+          <mxGeometry x="400" y="0" width="400" height="470" as="geometry"/>
+        </mxCell>
+
+        <!-- START -->
+        <mxCell id="LO01" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="50" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="LO02" value="Klik Tombol Logout&#xa;dari Halaman Manapun" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-admin">
+          <mxGeometry x="105" y="140" width="180" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="LO03" value="Menghapus Semua&#xa;Data Session" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="140" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="LO04" value="Redirect ke&#xa;Halaman Login" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="240" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="LO05" value="Menampilkan&#xa;Halaman Login" style="rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="sw-sistem">
+          <mxGeometry x="110" y="335" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- END -->
+        <mxCell id="LO06" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="sw-admin">
+          <mxGeometry x="175" y="385" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="LOe01" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="LO01" target="LO02" parent="sw-admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="LOe02" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="LO02" target="LO03" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="LOe03" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="LO03" target="LO04" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="LOe04" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="LO04" target="LO05" parent="sw-sistem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="LOe05" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="LO05" target="LO06" parent="pool">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+</mxfile>
