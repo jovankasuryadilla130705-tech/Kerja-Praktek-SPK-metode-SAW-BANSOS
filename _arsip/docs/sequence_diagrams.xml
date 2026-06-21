@@ -1,0 +1,790 @@
+<mxfile host="app.diagrams.net" modified="2026-06-17T14:00:00.000Z" agent="Draw.io" version="24.0.0" type="device">
+
+  <!-- ================================================================== -->
+  <!--  1. SEQUENCE DIAGRAM — PROSES LOGIN                                -->
+  <!-- ================================================================== -->
+  <diagram id="sd1" name="1. Sequence - Proses Login">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="820" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- TITLE -->
+        <mxCell id="sd1_title" value="SEQUENCE DIAGRAM — PROSES LOGIN" style="text;html=1;align=center;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="10" width="700" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- PARTICIPANT BOXES -->
+        <mxCell id="sd1_p1" value="Admin" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="55" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd1_p2" value="Flask App&#xa;(app.py)" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="385" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd1_p3" value="Database&#xa;(SQLite)" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="715" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- LIFELINES -->
+        <mxCell id="sd1_l1" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="95" as="sourcePoint"/><mxPoint x="120" y="770" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd1_l2" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="95" as="sourcePoint"/><mxPoint x="450" y="770" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd1_l3" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="95" as="sourcePoint"/><mxPoint x="780" y="770" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- MESSAGES -->
+        <mxCell id="sd1_m1" value="1: GET / [Buka Halaman Login]" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="165" as="sourcePoint"/><mxPoint x="450" y="165" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd1_m2" value="2: Render Form Login (HTML)" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="210" as="sourcePoint"/><mxPoint x="120" y="210" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd1_m3" value="3: POST /login {username, password}" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="265" as="sourcePoint"/><mxPoint x="450" y="265" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd1_m4" value="4: SELECT * FROM users WHERE username=?" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="315" as="sourcePoint"/><mxPoint x="780" y="315" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd1_m5" value="5: Return user data / None" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="365" as="sourcePoint"/><mxPoint x="450" y="365" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <!-- Self-call: check_password_hash -->
+        <mxCell id="sd1_m6" value="6: check_password_hash()" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="410" as="sourcePoint"/>
+            <mxPoint x="450" y="440" as="targetPoint"/>
+            <Array as="points"><mxPoint x="500" y="410"/><mxPoint x="500" y="440"/></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ALT FRAME -->
+        <mxCell id="sd1_alt" value="" style="rounded=0;fillColor=none;dashed=1;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="55" y="460" width="880" height="270" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd1_alt_lbl" value="alt" style="rounded=0;fillColor=#e6e6e6;strokeColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="55" y="460" width="40" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd1_alt_g1" value="[Kredensial Valid]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="462" width="180" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd1_m7" value="7: INSERT INTO login_history" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="500" as="sourcePoint"/><mxPoint x="780" y="500" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd1_m8" value="8: Return OK" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="545" as="sourcePoint"/><mxPoint x="450" y="545" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd1_m9" value="9: Redirect /dashboard + Set session" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="590" as="sourcePoint"/><mxPoint x="120" y="590" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <!-- ALT separator -->
+        <mxCell id="sd1_sep" value="" style="endArrow=none;dashed=1;strokeColor=#000000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="55" y="620" as="sourcePoint"/><mxPoint x="935" y="620" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd1_alt_g2" value="[Kredensial Tidak Valid]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="622" width="200" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd1_m10" value="10: Flash error + Redirect /login" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="660" as="sourcePoint"/><mxPoint x="120" y="660" as="targetPoint"/></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  2. SEQUENCE DIAGRAM — PROSES KLASIFIKASI MANUAL                   -->
+  <!-- ================================================================== -->
+  <diagram id="sd2" name="2. Sequence - Klasifikasi Manual">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1050" pageHeight="1050" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="sd2_title" value="SEQUENCE DIAGRAM — PROSES KLASIFIKASI MANUAL DATA WARGA" style="text;html=1;align=center;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="10" width="850" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- PARTICIPANTS (4) -->
+        <mxCell id="sd2_p1" value="Admin" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="25" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd2_p2" value="Flask App&#xa;(app.py)" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="245" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd2_p3" value="Modul SAW&#xa;(spk.py)" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="495" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd2_p4" value="Database&#xa;(SQLite)" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="745" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- LIFELINES -->
+        <mxCell id="sd2_l1" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="90" y="95" as="sourcePoint"/><mxPoint x="90" y="1000" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_l2" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="95" as="sourcePoint"/><mxPoint x="310" y="1000" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_l3" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="560" y="95" as="sourcePoint"/><mxPoint x="560" y="1000" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_l4" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="810" y="95" as="sourcePoint"/><mxPoint x="810" y="1000" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- MESSAGES -->
+        <mxCell id="sd2_m1" value="1: GET /classification" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="90" y="165" as="sourcePoint"/><mxPoint x="310" y="165" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_m2" value="2: Query Kriteria &amp; SubKriteria" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="210" as="sourcePoint"/><mxPoint x="810" y="210" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_m3" value="3: Return daftar kriteria &amp; sub-kriteria" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="810" y="255" as="sourcePoint"/><mxPoint x="310" y="255" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_m4" value="4: Render Form Klasifikasi Manual" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="300" as="sourcePoint"/><mxPoint x="90" y="300" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_m5" value="5: POST /classification {identitas warga + nilai kriteria C1–C7}" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="90" y="355" as="sourcePoint"/><mxPoint x="310" y="355" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <!-- Self: Validasi NIK -->
+        <mxCell id="sd2_m6" value="6: Validasi NIK &amp; No KK (16 digit)" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="400" as="sourcePoint"/>
+            <mxPoint x="310" y="430" as="targetPoint"/>
+            <Array as="points"><mxPoint x="365" y="400"/><mxPoint x="365" y="430"/></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ALT FRAME -->
+        <mxCell id="sd2_alt" value="" style="rounded=0;fillColor=none;dashed=1;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="25" y="450" width="985" height="510" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd2_alt_lbl" value="alt" style="rounded=0;fillColor=#e6e6e6;strokeColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="25" y="450" width="40" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd2_alt_g1" value="[Format Valid]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="452" width="150" height="18" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sd2_m7" value="7: Query semua data warga (baseline SAW)" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="490" as="sourcePoint"/><mxPoint x="810" y="490" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_m8" value="8: Return semua ClassificationResult" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="810" y="535" as="sourcePoint"/><mxPoint x="310" y="535" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_m9" value="9: hitung_status_kelayakan_dinamis(data, id, kriteria)" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="580" as="sourcePoint"/><mxPoint x="560" y="580" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_m10" value="10: Return (hasil, alasan, skor_saw)" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="560" y="630" as="sourcePoint"/><mxPoint x="310" y="630" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_m11" value="11: INSERT INTO classification_results" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="675" as="sourcePoint"/><mxPoint x="810" y="675" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_m12" value="12: Return OK" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="810" y="720" as="sourcePoint"/><mxPoint x="310" y="720" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_m13" value="13: Redirect /history + Flash 'Hasil: Layak/Tidak Layak'" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="765" as="sourcePoint"/><mxPoint x="90" y="765" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ALT separator -->
+        <mxCell id="sd2_sep" value="" style="endArrow=none;dashed=1;strokeColor=#000000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="25" y="800" as="sourcePoint"/><mxPoint x="1010" y="800" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd2_alt_g2" value="[Format Tidak Valid]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="802" width="200" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd2_m14" value="14: Flash error 'NIK/No KK tidak valid' + Redirect /classification" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="840" as="sourcePoint"/><mxPoint x="90" y="840" as="targetPoint"/></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  3. SEQUENCE DIAGRAM — PROSES IMPORT MASSAL & KLASIFIKASI BATCH    -->
+  <!-- ================================================================== -->
+  <diagram id="sd3" name="3. Sequence - Import Massal &amp; Klasifikasi Batch">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1050" pageHeight="1150" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="sd3_title" value="SEQUENCE DIAGRAM — PROSES IMPORT MASSAL DAN KLASIFIKASI BATCH" style="text;html=1;align=center;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="10" width="950" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- PARTICIPANTS (4) -->
+        <mxCell id="sd3_p1" value="Admin" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="25" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd3_p2" value="Flask App&#xa;(app.py)" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="245" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd3_p3" value="Modul SAW&#xa;(spk.py)" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="495" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd3_p4" value="Database&#xa;(SQLite)" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="745" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- LIFELINES -->
+        <mxCell id="sd3_l1" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="90" y="95" as="sourcePoint"/><mxPoint x="90" y="1100" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_l2" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="95" as="sourcePoint"/><mxPoint x="310" y="1100" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_l3" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="560" y="95" as="sourcePoint"/><mxPoint x="560" y="1100" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_l4" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="810" y="95" as="sourcePoint"/><mxPoint x="810" y="1100" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- MESSAGES -->
+        <mxCell id="sd3_m1" value="1: GET /classification (tab Import Massal)" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="90" y="165" as="sourcePoint"/><mxPoint x="310" y="165" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_m2" value="2: Render form upload file" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="210" as="sourcePoint"/><mxPoint x="90" y="210" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_m3" value="3: POST /classification {file: Excel/CSV}" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="90" y="260" as="sourcePoint"/><mxPoint x="310" y="260" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ALT: Format Valid/Tidak -->
+        <mxCell id="sd3_alt1" value="" style="rounded=0;fillColor=none;dashed=1;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="25" y="285" width="985" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd3_alt1_lbl" value="alt" style="rounded=0;fillColor=#e6e6e6;strokeColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="25" y="285" width="40" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd3_alt1_g1" value="[Format file .csv/.xls/.xlsx: Valid]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="287" width="250" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd3_m4" value="4: Baca file ke DataFrame (Pandas)" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="315" as="sourcePoint"/>
+            <mxPoint x="310" y="340" as="targetPoint"/>
+            <Array as="points"><mxPoint x="370" y="315"/><mxPoint x="370" y="340"/></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_sep1" value="" style="endArrow=none;dashed=1;strokeColor=#000000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="25" y="365" as="sourcePoint"/><mxPoint x="1010" y="365" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_alt1_g2" value="[Format Tidak Valid]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="367" width="200" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd3_m5" value="5: Flash error format + Redirect" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="410" as="sourcePoint"/><mxPoint x="90" y="410" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <mxCell id="sd3_m6" value="6: Query Kriteria + data baseline SAW" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="470" as="sourcePoint"/><mxPoint x="810" y="470" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_m7" value="7: Return data kriteria + data warga" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="810" y="515" as="sourcePoint"/><mxPoint x="310" y="515" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- LOOP FRAME -->
+        <mxCell id="sd3_loop" value="" style="rounded=0;fillColor=none;dashed=1;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="25" y="540" width="985" height="340" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd3_loop_lbl" value="loop" style="rounded=0;fillColor=#e6e6e6;strokeColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="25" y="540" width="45" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd3_loop_g" value="[untuk setiap baris data]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="75" y="542" width="230" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd3_m8" value="8: Validasi NIK &amp; No KK baris (16 digit angka)" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="580" as="sourcePoint"/>
+            <mxPoint x="310" y="605" as="targetPoint"/>
+            <Array as="points"><mxPoint x="370" y="580"/><mxPoint x="370" y="605"/></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_m9" value="9: Mapping nilai kolom ke SubKriteria (C1–C7)" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="640" as="sourcePoint"/>
+            <mxPoint x="310" y="665" as="targetPoint"/>
+            <Array as="points"><mxPoint x="370" y="640"/><mxPoint x="370" y="665"/></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_m10" value="10: hitung_status_kelayakan_dinamis(data, id, kriteria)" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="700" as="sourcePoint"/><mxPoint x="560" y="700" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_m11" value="11: Return (hasil, alasan, skor_saw)" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="560" y="745" as="sourcePoint"/><mxPoint x="310" y="745" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_m12" value="12: db.session.add(record_baru)" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="790" as="sourcePoint"/>
+            <mxPoint x="310" y="815" as="targetPoint"/>
+            <Array as="points"><mxPoint x="370" y="790"/><mxPoint x="370" y="815"/></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="sd3_m13" value="13: db.session.commit() [Batch seluruh data]" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="910" as="sourcePoint"/><mxPoint x="810" y="910" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_m14" value="14: Return OK" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="810" y="960" as="sourcePoint"/><mxPoint x="310" y="960" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd3_m15" value="15: Redirect /history + Flash 'Sukses N data diproses'" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="1010" as="sourcePoint"/><mxPoint x="90" y="1010" as="targetPoint"/></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  4. SEQUENCE DIAGRAM — FILTER, PENCARIAN, DAN EKSPOR HISTORI       -->
+  <!-- ================================================================== -->
+  <diagram id="sd4" name="4. Sequence - Filter, Pencarian, dan Ekspor Histori">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="sd4_title" value="SEQUENCE DIAGRAM — PROSES FILTER, PENCARIAN, DAN EKSPOR HISTORI" style="text;html=1;align=center;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="10" width="900" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- PARTICIPANTS (3) -->
+        <mxCell id="sd4_p1" value="Admin" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="55" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd4_p2" value="Flask App&#xa;(app.py)" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="385" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd4_p3" value="Database&#xa;(SQLite)" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="715" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- LIFELINES -->
+        <mxCell id="sd4_l1" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="95" as="sourcePoint"/><mxPoint x="120" y="960" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_l2" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="95" as="sourcePoint"/><mxPoint x="450" y="960" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_l3" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="95" as="sourcePoint"/><mxPoint x="780" y="960" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Init: Buka Histori -->
+        <mxCell id="sd4_m1" value="1: GET /history" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="165" as="sourcePoint"/><mxPoint x="450" y="165" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_m2" value="2: SELECT * FROM classification_results ORDER BY created_at DESC" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="210" as="sourcePoint"/><mxPoint x="780" y="210" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_m3" value="3: Return semua data histori" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="255" as="sourcePoint"/><mxPoint x="450" y="255" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_m4" value="4: Render halaman Histori (tabel data)" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="300" as="sourcePoint"/><mxPoint x="120" y="300" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ALT FRAME: Pencarian / Ekspor -->
+        <mxCell id="sd4_alt" value="" style="rounded=0;fillColor=none;dashed=1;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="55" y="330" width="875" height="580" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd4_alt_lbl" value="alt" style="rounded=0;fillColor=#e6e6e6;strokeColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="55" y="330" width="40" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd4_alt_g1" value="[Pencarian — Admin input kata kunci]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="332" width="280" height="18" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sd4_m5" value="5: GET /history?search=keyword" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="370" as="sourcePoint"/><mxPoint x="450" y="370" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_m6" value="6: SELECT ... WHERE nik/nama/kelurahan ILIKE '%keyword%'" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="415" as="sourcePoint"/><mxPoint x="780" y="415" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_m7" value="7: Return filtered results" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="460" as="sourcePoint"/><mxPoint x="450" y="460" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_m8" value="8: Render halaman Histori (hasil pencarian)" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="505" as="sourcePoint"/><mxPoint x="120" y="505" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ALT separator: Ekspor -->
+        <mxCell id="sd4_sep" value="" style="endArrow=none;dashed=1;strokeColor=#000000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="55" y="535" as="sourcePoint"/><mxPoint x="930" y="535" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_alt_g2" value="[Ekspor Excel — Admin klik Export]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="537" width="280" height="18" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sd4_m9" value="9: GET /export/excel?kelurahan=...&amp;search=..." style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="575" as="sourcePoint"/><mxPoint x="450" y="575" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_m10" value="10: SELECT ... FROM classification_results (dengan filter)" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="620" as="sourcePoint"/><mxPoint x="780" y="620" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_m11" value="11: Return data yang difilter" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="665" as="sourcePoint"/><mxPoint x="450" y="665" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <!-- Self: Buat Excel -->
+        <mxCell id="sd4_m12" value="12: Buat DataFrame → ExcelWriter → .xlsx (di memori)" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="710" as="sourcePoint"/>
+            <mxPoint x="450" y="740" as="targetPoint"/>
+            <Array as="points"><mxPoint x="510" y="710"/><mxPoint x="510" y="740"/></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_m13" value="13: send_file(.xlsx) — Download ke Browser Admin" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="790" as="sourcePoint"/><mxPoint x="120" y="790" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd4_m14" value="14: Admin menyimpan file Excel ke perangkat" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="840" as="sourcePoint"/>
+            <mxPoint x="120" y="865" as="targetPoint"/>
+            <Array as="points"><mxPoint x="60" y="840"/><mxPoint x="60" y="865"/></Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  5. SEQUENCE DIAGRAM — PROSES EDIT HISTORI DAN OVERRIDE STATUS     -->
+  <!-- ================================================================== -->
+  <diagram id="sd5" name="5. Sequence - Edit Histori dan Override Status">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1050" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="sd5_title" value="SEQUENCE DIAGRAM — PROSES EDIT HISTORI DAN OVERRIDE STATUS" style="text;html=1;align=center;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="10" width="950" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- PARTICIPANTS (4) -->
+        <mxCell id="sd5_p1" value="Admin" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="25" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd5_p2" value="Flask App&#xa;(app.py)" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="245" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd5_p3" value="Modul SAW&#xa;(spk.py)" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="495" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd5_p4" value="Database&#xa;(SQLite)" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="745" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- LIFELINES -->
+        <mxCell id="sd5_l1" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="90" y="95" as="sourcePoint"/><mxPoint x="90" y="1040" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_l2" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="95" as="sourcePoint"/><mxPoint x="310" y="1040" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_l3" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="560" y="95" as="sourcePoint"/><mxPoint x="560" y="1040" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_l4" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="810" y="95" as="sourcePoint"/><mxPoint x="810" y="1040" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- MESSAGES -->
+        <mxCell id="sd5_m1" value="1: GET /edit/&lt;id&gt;" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="90" y="165" as="sourcePoint"/><mxPoint x="310" y="165" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_m2" value="2: SELECT * FROM classification_results WHERE id=?" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="210" as="sourcePoint"/><mxPoint x="810" y="210" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_m3" value="3: Return record data" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="810" y="255" as="sourcePoint"/><mxPoint x="310" y="255" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_m4" value="4: Render form edit (data terisi)" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="300" as="sourcePoint"/><mxPoint x="90" y="300" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_m5" value="5: POST /edit/&lt;id&gt; {data_baru, override_status}" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="90" y="355" as="sourcePoint"/><mxPoint x="310" y="355" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <!-- Self: Validasi -->
+        <mxCell id="sd5_m6" value="6: Validasi NIK &amp; No KK (16 digit angka)" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="400" as="sourcePoint"/>
+            <mxPoint x="310" y="425" as="targetPoint"/>
+            <Array as="points"><mxPoint x="370" y="400"/><mxPoint x="370" y="425"/></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ALT FRAME: Valid / Tidak Valid -->
+        <mxCell id="sd5_alt" value="" style="rounded=0;fillColor=none;dashed=1;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="25" y="450" width="985" height="540" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd5_alt_lbl" value="alt" style="rounded=0;fillColor=#e6e6e6;strokeColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="25" y="450" width="40" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd5_alt_g1" value="[Format Valid]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="452" width="150" height="18" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sd5_m7" value="7: Query semua data warga (baseline SAW, exclude record lama)" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="490" as="sourcePoint"/><mxPoint x="810" y="490" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_m8" value="8: Return data baseline" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="810" y="535" as="sourcePoint"/><mxPoint x="310" y="535" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_m9" value="9: hitung_status_kelayakan_dinamis(data_baru, id, kriteria)" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="580" as="sourcePoint"/><mxPoint x="560" y="580" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_m10" value="10: Return (hasil_baru, alasan, skor_saw)" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="560" y="625" as="sourcePoint"/><mxPoint x="310" y="625" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- OPT FRAME: Override -->
+        <mxCell id="sd5_opt" value="" style="rounded=0;fillColor=none;dashed=1;strokeColor=#555555;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="650" width="775" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd5_opt_lbl" value="opt" style="rounded=0;fillColor=#e6e6e6;strokeColor=#555555;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="650" width="40" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd5_opt_g" value="[override_status diisi oleh Admin]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="90" y="652" width="250" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd5_m11" value="11: hasil = override_status (Layak / Tidak Layak)" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="685" as="sourcePoint"/>
+            <mxPoint x="310" y="710" as="targetPoint"/>
+            <Array as="points"><mxPoint x="370" y="685"/><mxPoint x="370" y="710"/></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="sd5_m12" value="12: UPDATE classification_results SET ..." style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="760" as="sourcePoint"/><mxPoint x="810" y="760" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_m13" value="13: Return OK" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="810" y="805" as="sourcePoint"/><mxPoint x="310" y="805" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_m14" value="14: Redirect /history + Flash 'Data berhasil diperbarui'" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="850" as="sourcePoint"/><mxPoint x="90" y="850" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ALT separator: Tidak Valid -->
+        <mxCell id="sd5_sep" value="" style="endArrow=none;dashed=1;strokeColor=#000000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="25" y="885" as="sourcePoint"/><mxPoint x="1010" y="885" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd5_alt_g2" value="[Format Tidak Valid]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="887" width="200" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd5_m15" value="15: Flash error 'NIK/No KK tidak valid' + Redirect /edit/&lt;id&gt;" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="310" y="930" as="sourcePoint"/><mxPoint x="90" y="930" as="targetPoint"/></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  6. SEQUENCE DIAGRAM — MANAJEMEN KRITERIA DAN SUB-KRITERIA         -->
+  <!-- ================================================================== -->
+  <diagram id="sd6" name="6. Sequence - Manajemen Kriteria dan Sub-Kriteria">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="sd6_title" value="SEQUENCE DIAGRAM — PROSES MANAJEMEN KRITERIA DAN SUB-KRITERIA" style="text;html=1;align=center;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="10" width="900" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- PARTICIPANTS (3) -->
+        <mxCell id="sd6_p1" value="Admin" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="55" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd6_p2" value="Flask App&#xa;(app.py)" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="385" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd6_p3" value="Database&#xa;(SQLite)" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="715" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- LIFELINES -->
+        <mxCell id="sd6_l1" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="95" as="sourcePoint"/><mxPoint x="120" y="1210" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_l2" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="95" as="sourcePoint"/><mxPoint x="450" y="1210" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_l3" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="95" as="sourcePoint"/><mxPoint x="780" y="1210" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- === BAGIAN KRITERIA === -->
+        <mxCell id="sd6_sec1" value="BAGIAN 1: MANAJEMEN KRITERIA" style="text;html=1;align=left;fontSize=12;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="55" y="140" width="350" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sd6_m1" value="1: GET /kriteria" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="175" as="sourcePoint"/><mxPoint x="450" y="175" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m2" value="2: SELECT Kriteria + SUM(bobot)" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="220" as="sourcePoint"/><mxPoint x="780" y="220" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m3" value="3: Return daftar kriteria + total bobot" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="265" as="sourcePoint"/><mxPoint x="450" y="265" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m4" value="4: Render halaman Kriteria (tabel + form)" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="310" as="sourcePoint"/><mxPoint x="120" y="310" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m5" value="5: POST /kriteria {action=add|edit|delete, data kriteria}" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="360" as="sourcePoint"/><mxPoint x="450" y="360" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ALT FRAME: add/edit vs delete -->
+        <mxCell id="sd6_alt" value="" style="rounded=0;fillColor=none;dashed=1;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="55" y="385" width="875" height="310" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd6_alt_lbl" value="alt" style="rounded=0;fillColor=#e6e6e6;strokeColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="55" y="385" width="40" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd6_alt_g1" value="[action = add / edit — perlu validasi bobot]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="387" width="300" height="18" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sd6_m6" value="6: SELECT SUM(bobot) FROM kriteria" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="425" as="sourcePoint"/><mxPoint x="780" y="425" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m7" value="7: Return total bobot existing" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="470" as="sourcePoint"/><mxPoint x="450" y="470" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m8" value="8: Cek total + bobot_baru ≤ 1.0" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="510" as="sourcePoint"/>
+            <mxPoint x="450" y="535" as="targetPoint"/>
+            <Array as="points"><mxPoint x="510" y="510"/><mxPoint x="510" y="535"/></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m9" value="9: INSERT / UPDATE kriteria" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="570" as="sourcePoint"/><mxPoint x="780" y="570" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ALT separator -->
+        <mxCell id="sd6_sep1" value="" style="endArrow=none;dashed=1;strokeColor=#000000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="55" y="610" as="sourcePoint"/><mxPoint x="930" y="610" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_alt_g2" value="[action = delete]" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="612" width="200" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd6_m10" value="10: DELETE FROM kriteria WHERE id=?" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="655" as="sourcePoint"/><mxPoint x="780" y="655" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <mxCell id="sd6_m11" value="11: Return OK" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="715" as="sourcePoint"/><mxPoint x="450" y="715" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m12" value="12: Redirect /kriteria + Flash 'Berhasil'" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="760" as="sourcePoint"/><mxPoint x="120" y="760" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- === BAGIAN SUB-KRITERIA === -->
+        <mxCell id="sd6_divider" value="" style="endArrow=none;strokeColor=#666666;strokeWidth=2;dashed=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="55" y="800" as="sourcePoint"/><mxPoint x="930" y="800" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_sec2" value="BAGIAN 2: MANAJEMEN SUB-KRITERIA" style="text;html=1;align=left;fontSize=12;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="55" y="810" width="380" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sd6_m13" value="13: GET /sub-kriteria/&lt;kriteria_id&gt;" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="845" as="sourcePoint"/><mxPoint x="450" y="845" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m14" value="14: SELECT SubKriteria WHERE kriteria_id=?" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="890" as="sourcePoint"/><mxPoint x="780" y="890" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m15" value="15: Return daftar sub-kriteria + skor" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="935" as="sourcePoint"/><mxPoint x="450" y="935" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m16" value="16: Render halaman Sub-Kriteria" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="980" as="sourcePoint"/><mxPoint x="120" y="980" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m17" value="17: POST /sub-kriteria/&lt;id&gt; {action=add|edit|delete, data}" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="120" y="1025" as="sourcePoint"/><mxPoint x="450" y="1025" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m18" value="18: INSERT / UPDATE / DELETE SubKriteria" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="1070" as="sourcePoint"/><mxPoint x="780" y="1070" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m19" value="19: Return OK" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="1115" as="sourcePoint"/><mxPoint x="450" y="1115" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd6_m20" value="20: Redirect /sub-kriteria/&lt;id&gt; + Flash 'Berhasil'" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="450" y="1160" as="sourcePoint"/><mxPoint x="120" y="1160" as="targetPoint"/></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ================================================================== -->
+  <!--  7. SEQUENCE DIAGRAM — PROSES LOGOUT                               -->
+  <!-- ================================================================== -->
+  <diagram id="sd7" name="7. Sequence - Proses Logout">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="520" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="sd7_title" value="SEQUENCE DIAGRAM — PROSES LOGOUT" style="text;html=1;align=center;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="10" width="600" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- PARTICIPANTS (2) -->
+        <mxCell id="sd7_p1" value="Admin" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="130" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sd7_p2" value="Flask App&#xa;(app.py)" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="540" y="55" width="130" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- LIFELINES -->
+        <mxCell id="sd7_l1" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="195" y="95" as="sourcePoint"/><mxPoint x="195" y="480" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd7_l2" value="" style="endArrow=none;dashed=1;strokeColor=#888888;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="605" y="95" as="sourcePoint"/><mxPoint x="605" y="480" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- MESSAGES -->
+        <mxCell id="sd7_m1" value="1: GET /logout (klik tombol Logout)" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="195" y="165" as="sourcePoint"/><mxPoint x="605" y="165" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <!-- Self: session.clear() -->
+        <mxCell id="sd7_m2" value="2: session.clear() [hapus semua data session]" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="605" y="220" as="sourcePoint"/>
+            <mxPoint x="605" y="250" as="targetPoint"/>
+            <Array as="points"><mxPoint x="670" y="220"/><mxPoint x="670" y="250"/></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sd7_m3" value="3: Redirect ke / (halaman login)" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="605" y="295" as="sourcePoint"/><mxPoint x="195" y="295" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd7_m4" value="4: GET / [Browser mengikuti redirect]" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="195" y="345" as="sourcePoint"/><mxPoint x="605" y="345" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd7_m5" value="5: Render Form Login (HTML)" style="dashed=1;endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="605" y="395" as="sourcePoint"/><mxPoint x="195" y="395" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="sd7_m6" value="6: Menampilkan halaman Login" style="endArrow=open;endFill=0;strokeColor=#000000;fontSize=10;align=left;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="195" y="440" as="sourcePoint"/>
+            <mxPoint x="195" y="465" as="targetPoint"/>
+            <Array as="points"><mxPoint x="140" y="440"/><mxPoint x="140" y="465"/></Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+</mxfile>

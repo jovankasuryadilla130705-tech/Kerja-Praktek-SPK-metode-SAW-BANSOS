@@ -1,0 +1,197 @@
+<mxfile host="Electron" pages="2">
+  <diagram id="uOitco-zBwqE8D6viT17" name="Page-1">
+    <mxGraphModel dx="1414" dy="841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="1050" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1;fontColor=#1a1a2e;" value="Class Diagram - Sistem Klasifikasi Bansos" vertex="1">
+          <mxGeometry height="40" width="600" x="350" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="C_User" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#dae8fc;strokeColor=#1e88e5;fontColor=#0d47a1;fontSize=12;" value="User" vertex="1">
+          <mxGeometry height="154" width="220" x="100" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="C_User_attr" parent="C_User" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="- id : Integer&#xa;- username : String&#xa;- password_hash : String&#xa;- nama_lengkap : String&#xa;- foto_profil : String&#xa;- created_at : DateTime" vertex="1">
+          <mxGeometry height="94" width="220" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C_User_line" parent="C_User" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#1e88e5;fontStyle=1;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="8" width="220" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="C_User_meth" parent="C_User" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="+ __repr__() : String" vertex="1">
+          <mxGeometry height="26" width="220" y="128" as="geometry" />
+        </mxCell>
+        <mxCell id="C_LH" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9c27b0;fontColor=#4a148c;fontSize=12;" value="LoginHistory" vertex="1">
+          <mxGeometry height="139" width="220" x="100" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="C_LH_attr" parent="C_LH" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="- id : Integer&#xa;- user_id : Integer&#xa;- login_time : DateTime&#xa;- ip_address : String&#xa;- user_agent : Text" vertex="1">
+          <mxGeometry height="79" width="220" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C_LH_line" parent="C_LH" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#9c27b0;fontStyle=1;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="8" width="220" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="C_LH_meth" parent="C_LH" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="" vertex="1">
+          <mxGeometry height="26" width="220" y="113" as="geometry" />
+        </mxCell>
+        <mxCell id="C_Krit" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#d5e8d4;strokeColor=#388e3c;fontColor=#1b5e20;fontSize=12;" value="Kriteria" vertex="1">
+          <mxGeometry height="139" width="220" x="880" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="C_Krit_attr" parent="C_Krit" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="- id : Integer&#xa;- kode : String&#xa;- nama : String&#xa;- tipe : String&#xa;- bobot : Float" vertex="1">
+          <mxGeometry height="79" width="220" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C_Krit_line" parent="C_Krit" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#388e3c;fontStyle=1;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="8" width="220" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="C_Krit_meth" parent="C_Krit" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="" vertex="1">
+          <mxGeometry height="26" width="220" y="113" as="geometry" />
+        </mxCell>
+        <mxCell id="C_Sub" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#7c4a00;fontSize=12;" value="SubKriteria" vertex="1">
+          <mxGeometry height="124" width="220" x="880" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="C_Sub_attr" parent="C_Sub" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="- id : Integer&#xa;- kriteria_id : Integer&#xa;- nama : String&#xa;- skor : Integer" vertex="1">
+          <mxGeometry height="64" width="220" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C_Sub_line" parent="C_Sub" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="8" width="220" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="C_Sub_meth" parent="C_Sub" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="" vertex="1">
+          <mxGeometry height="26" width="220" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="C_CR" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#ffe6e6;strokeColor=#e53935;fontColor=#b71c1c;fontSize=12;" value="ClassificationResult" vertex="1">
+          <mxGeometry height="344" width="250" x="450" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="C_CR_attr" parent="C_CR" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="- id : Integer&#xa;- nik : String&#xa;- no_kk : String&#xa;- nama : String&#xa;- pekerjaan : String&#xa;- alamat : Text&#xa;- kelurahan : String&#xa;- penghasilan : Integer&#xa;- jumlah_tanggungan : Integer&#xa;- status_rumah : String&#xa;- kondisi_bangunan : String&#xa;- sumber_air : String&#xa;- daya_listrik : String&#xa;- kriteria_details : Text (JSON)&#xa;- skor_saw : Float&#xa;- hasil_klasifikasi : String&#xa;- alasan : Text&#xa;- created_at : DateTime" vertex="1">
+          <mxGeometry height="284" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C_CR_line" parent="C_CR" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#e53935;fontStyle=1;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="8" width="250" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="C_CR_meth" parent="C_CR" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="+ __repr__() : String" vertex="1">
+          <mxGeometry height="26" width="250" y="318" as="geometry" />
+        </mxCell>
+        <mxCell id="C_SPK" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=12;" value="SPK Calculator (Logical)" vertex="1">
+          <mxGeometry height="124" width="310" x="420" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="C_SPK_attr" parent="C_SPK" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="- config : Config" vertex="1">
+          <mxGeometry height="24" width="310" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C_SPK_line" parent="C_SPK" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#666666;fontStyle=1;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="8" width="310" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="C_SPK_meth" parent="C_SPK" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;fontStyle=1" value="+ hitung_saw(data, kriteria) : List&#xa;+ generate_alasan_dinamis(...) : String&#xa;+ tentukan_kelayakan(...) : List&#xa;+ hitung_status_kelayakan_dinamis(...) : Tuple" vertex="1">
+          <mxGeometry height="66" width="310" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="E1" edge="1" parent="1" source="C_User" style="endArrow=diamondThin;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#1e88e5;strokeWidth=1.5;fontStyle=1;fontColor=#1e88e5;fontSize=12;" target="C_LH" value="1">
+          <mxGeometry relative="1" x="-0.8" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E1_L" connectable="0" parent="E1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontStyle=1;fontSize=12;fontColor=#1e88e5;" value="*" vertex="1">
+          <mxGeometry relative="1" x="0.8" y="2" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E2" edge="1" parent="1" source="C_Krit" style="endArrow=diamondThin;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#388e3c;strokeWidth=1.5;fontStyle=1;fontColor=#388e3c;fontSize=12;" target="C_Sub" value="1">
+          <mxGeometry relative="1" x="-0.8" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E2_L" connectable="0" parent="E2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontStyle=1;fontSize=12;fontColor=#388e3c;" value="*" vertex="1">
+          <mxGeometry relative="1" x="0.8" y="-2" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E3" edge="1" parent="1" source="C_SPK" style="endArrow=open;endFill=0;dashed=1;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#666666;strokeWidth=1.5;fontStyle=3;align=left;fontSize=12;" target="C_CR" value=" processes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E5" edge="1" parent="1" source="C_CR" style="endArrow=open;endFill=0;dashed=1;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;strokeColor=#e53935;strokeWidth=1.5;fontStyle=3;align=left;fontSize=12;" target="C_Krit" value=" refers (JSON)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="vEYVn1DLnfocPwRi6OAt" name="Page-2">
+    <mxGraphModel dx="1414" dy="1241" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;" value="Mulai" vertex="1">
+          <mxGeometry height="40" width="100" x="360" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;" value="Penentuan Data Usulan dari 11 Kelurahan" vertex="1">
+          <mxGeometry height="50" width="250" x="285" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;" value="Rekapitulasi Data Manual oleh Staf" vertex="1">
+          <mxGeometry height="50" width="250" x="285" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;" value="Verifikasi Lapangan ke Rumah Warga" vertex="1">
+          <mxGeometry height="50" width="250" x="285" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-5" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;" value="Memenuhi Kriteria?" vertex="1">
+          <mxGeometry height="80" width="150" x="335" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-6" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;" value="Data Berkas / Ditolak" vertex="1">
+          <mxGeometry height="60" width="120" x="567" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;" value="Musyawarah Penetapan Penerima Manfaat" vertex="1">
+          <mxGeometry height="50" width="250" x="285" y="409" as="geometry" />
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;" value="Daftar Final Penerima Bantuan" vertex="1">
+          <mxGeometry height="50" width="250" x="285" y="482" as="geometry" />
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-9" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;" value="Selesai&lt;br&gt;(Penyaluran Bantuan)" vertex="1">
+          <mxGeometry height="60" width="150" x="335" y="554" as="geometry" />
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-10" edge="1" parent="1" source="O7WilBWSiJ7FF-iU-lza-1" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontStyle=1;fontSize=14;" target="O7WilBWSiJ7FF-iU-lza-2" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="360" y="70" as="sourcePoint" />
+            <mxPoint x="410" y="20" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-11" edge="1" parent="1" source="O7WilBWSiJ7FF-iU-lza-2" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontStyle=1;fontSize=14;" target="O7WilBWSiJ7FF-iU-lza-3" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="410" y="130" as="sourcePoint" />
+            <mxPoint x="410" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-12" edge="1" parent="1" source="O7WilBWSiJ7FF-iU-lza-3" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontStyle=1;fontSize=14;" target="O7WilBWSiJ7FF-iU-lza-4" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="410" y="200" as="sourcePoint" />
+            <mxPoint x="410" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-13" edge="1" parent="1" source="O7WilBWSiJ7FF-iU-lza-4" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontStyle=1;fontSize=14;" target="O7WilBWSiJ7FF-iU-lza-5" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="410" y="270" as="sourcePoint" />
+            <mxPoint x="410" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-14" edge="1" parent="1" source="O7WilBWSiJ7FF-iU-lza-5" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontStyle=1;fontSize=14;" target="O7WilBWSiJ7FF-iU-lza-6" value="TIDAK">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="485" y="330" as="sourcePoint" />
+            <mxPoint x="550" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-15" edge="1" parent="1" source="O7WilBWSiJ7FF-iU-lza-5" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontStyle=1;fontSize=14;" target="O7WilBWSiJ7FF-iU-lza-7" value="YA">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="410" y="370" as="sourcePoint" />
+            <mxPoint x="410" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-16" edge="1" parent="1" source="O7WilBWSiJ7FF-iU-lza-7" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontStyle=1;fontSize=14;" target="O7WilBWSiJ7FF-iU-lza-8" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="410" y="440" as="sourcePoint" />
+            <mxPoint x="410" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-17" edge="1" parent="1" source="O7WilBWSiJ7FF-iU-lza-8" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontStyle=1;fontSize=14;" target="O7WilBWSiJ7FF-iU-lza-9" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="410" y="510" as="sourcePoint" />
+            <mxPoint x="410" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="O7WilBWSiJ7FF-iU-lza-18" parent="1" style="swimlane;fontSize=14;startSize=31;strokeWidth=2;" value="Alur Verifikasi dan Seleksi Calon Penerima Bantuan Sosial" vertex="1">
+          <mxGeometry height="650" width="450" x="245" y="-28" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

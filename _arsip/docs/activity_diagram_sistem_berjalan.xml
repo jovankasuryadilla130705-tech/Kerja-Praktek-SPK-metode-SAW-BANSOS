@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Judul -->
+    <mxCell id="2" value="Activity Diagram Sistem Berjalan&#xa;Klasifikasi Penerima Bansos" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="225" y="30" width="400" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Start (Mulai) -->
+    <mxCell id="3" value="Mulai" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="350" y="100" width="100" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Arrow: Start -> Step 1 -->
+    <mxCell id="4" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="3" target="5" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Step 1: Petugas mengumpulkan data warga -->
+    <mxCell id="5" value="Petugas mengumpulkan data warga" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8eaf6;strokeColor=#9fa8da;fontSize=12;arcSize=10;verticalAlign=middle;align=center;" vertex="1" parent="1">
+      <mxGeometry x="250" y="180" width="300" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Arrow: Step 1 -> Step 2 -->
+    <mxCell id="6" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="5" target="7" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Step 2: Petugas memeriksa identitas dan kondisi warga -->
+    <mxCell id="7" value="Petugas memeriksa identitas dan kondisi warga" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8eaf6;strokeColor=#9fa8da;fontSize=12;arcSize=10;verticalAlign=middle;align=center;" vertex="1" parent="1">
+      <mxGeometry x="250" y="280" width="300" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Arrow: Step 2 -> Step 3 -->
+    <mxCell id="8" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="7" target="9" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Step 3: Petugas membandingkan kriteria secara manual -->
+    <mxCell id="9" value="Petugas membandingkan kriteria secara manual" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8eaf6;strokeColor=#9fa8da;fontSize=12;arcSize=10;verticalAlign=middle;align=center;" vertex="1" parent="1">
+      <mxGeometry x="250" y="380" width="300" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Arrow: Step 3 -> Step 4 -->
+    <mxCell id="10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="9" target="11" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Step 4: Petugas menentukan kelayakan bantuan -->
+    <mxCell id="11" value="Petugas menentukan kelayakan bantuan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8eaf6;strokeColor=#9fa8da;fontSize=12;arcSize=10;verticalAlign=middle;align=center;" vertex="1" parent="1">
+      <mxGeometry x="250" y="480" width="300" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Arrow: Step 4 -> Step 5 -->
+    <mxCell id="12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="11" target="13" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Step 5: Hasil dicatat sebagai arsip -->
+    <mxCell id="13" value="Hasil dicatat sebagai arsip" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8eaf6;strokeColor=#9fa8da;fontSize=12;arcSize=10;verticalAlign=middle;align=center;" vertex="1" parent="1">
+      <mxGeometry x="250" y="580" width="300" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Arrow: Step 5 -> End -->
+    <mxCell id="14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="13" target="15" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- End (Selesai) -->
+    <mxCell id="15" value="Selesai" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="350" y="680" width="100" height="50" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>
