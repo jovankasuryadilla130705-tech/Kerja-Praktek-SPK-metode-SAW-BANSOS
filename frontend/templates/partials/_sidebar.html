@@ -1,0 +1,86 @@
+<!-- =======================================================================
+  partials/_sidebar.html — Sidebar Navigasi Utama (Shared Partial)
+  ========================================================================
+  Include di setiap halaman. Logika menu berdasarkan role pengguna.
+  Variabel yang harus dikirim: active_page (string nama halaman aktif)
+  ======================================================================= -->
+
+<!-- Mobile Sidebar Overlay -->
+<div id="sidebar-overlay" onclick="toggleSidebar()"
+    class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-20 hidden opacity-0 transition-opacity duration-300 lg:hidden">
+</div>
+
+<!-- Sidebar -->
+<aside id="sidebar"
+    class="w-72 bg-white border-r border-gray-200 flex flex-col transition-transform duration-300 z-30 shadow-sm fixed inset-y-0 left-0 transform -translate-x-full lg:relative lg:translate-x-0 h-full">
+    <div class="h-20 flex items-center justify-between px-8 border-b border-gray-100 shrink-0">
+        <div class="flex items-center gap-3">
+            <img src="{{ url_for('static', filename='asset/logoKecamatanPondokAren.jpg') }}" alt="Logo Pondok Aren" class="h-10 w-auto shadow-sm object-contain">
+            <h1 class="text-xl font-bold text-gray-800 tracking-tight">SPK Bansos</h1>
+        </div>
+        <!-- Close button for mobile -->
+        <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-800">
+            <i class="ph ph-x text-2xl"></i>
+        </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1 relative">
+        <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 px-4">Menu Utama</div>
+
+        <!-- Dashboard — Semua role -->
+        <a href="{{ url_for('dashboard') }}"
+            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 {% if active_page == 'dashboard' %}active bg-blue-50 text-blue-600 font-medium{% else %}text-gray-600 hover:bg-gray-50 transition-colors{% endif %}">
+            <i class="ph ph-squares-four text-xl"></i>
+            <span class="font-medium">Dashboard</span>
+        </a>
+
+        <!-- Klasifikasi Data — Admin & Staff saja -->
+        {% if session.get('role') in ['admin', 'staff'] %}
+        <a href="{{ url_for('classification') }}"
+            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 {% if active_page == 'classification' %}active bg-blue-50 text-blue-600 font-medium{% else %}text-gray-600 hover:bg-gray-50 transition-colors{% endif %}">
+            <i class="ph ph-magic-wand text-xl"></i>
+            <span class="font-medium">Klasifikasi Data</span>
+        </a>
+        {% endif %}
+
+        <!-- Informasi SPK — Semua role -->
+        <a href="{{ url_for('informasi') }}"
+            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 {% if active_page == 'informasi' %}active bg-blue-50 text-blue-600 font-medium{% else %}text-gray-600 hover:bg-gray-50 transition-colors{% endif %}">
+            <i class="ph ph-info text-xl"></i>
+            <span class="font-medium">Informasi SPK</span>
+        </a>
+
+        <!-- Manajemen Kriteria — Admin saja -->
+        {% if session.get('role') == 'admin' %}
+        <a href="{{ url_for('kriteria') }}"
+            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 {% if active_page == 'kriteria' %}active bg-blue-50 text-blue-600 font-medium{% else %}text-gray-600 hover:bg-gray-50 transition-colors{% endif %}">
+            <i class="ph ph-list-numbers text-xl"></i>
+            <span class="font-medium">Manajemen Kriteria</span>
+        </a>
+        {% endif %}
+
+        <!-- Manajemen Histori — Semua role -->
+        <a href="{{ url_for('history') }}"
+            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 {% if active_page == 'history' %}active bg-blue-50 text-blue-600 font-medium{% else %}text-gray-600 hover:bg-gray-50 transition-colors{% endif %}">
+            <i class="ph ph-clock-counter-clockwise text-xl"></i>
+            <span class="font-medium">Manajemen Histori</span>
+        </a>
+
+        <!-- Manajemen Pengguna — Admin saja -->
+        {% if session.get('role') == 'admin' %}
+        <a href="{{ url_for('users') }}"
+            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl mb-1 {% if active_page == 'users' %}active bg-blue-50 text-blue-600 font-medium{% else %}text-gray-600 hover:bg-gray-50 transition-colors{% endif %}">
+            <i class="ph ph-users-three text-xl"></i>
+            <span class="font-medium">Manajemen Pengguna</span>
+        </a>
+        {% endif %}
+    </div>
+
+    <div class="p-4 border-t border-gray-100 shrink-0">
+        <a href="{{ url_for('logout') }}"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 transition-colors cursor-pointer group">
+            <i class="ph ph-sign-out text-xl group-hover:scale-110 transition-transform"></i>
+            <span class="font-medium">Keluar</span>
+        </a>
+    </div>
+</aside>

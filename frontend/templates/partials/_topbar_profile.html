@@ -1,0 +1,36 @@
+<!-- =======================================================================
+  partials/_topbar_profile.html — Profil Dropdown di Topbar (Shared)
+  ========================================================================
+  Include di setiap halaman di dalam <header> topbar.
+  Menampilkan foto profil, nama user, dan role label dinamis.
+  ======================================================================= -->
+
+<!-- Profil Dropdown -->
+<div class="relative" id="profile-dropdown-container">
+    <div class="flex items-center gap-2 lg:gap-3 cursor-pointer group" onclick="toggleProfileDropdown()">
+        <img src="{{ profile_photo_url(session.get('foto_profil'), session.get('nama_lengkap') or session.get('username', 'Admin')) }}"
+            alt="Profil" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full shadow-sm object-cover border-2 border-white">
+        
+        <div class="hidden sm:block">
+            <p class="text-sm font-semibold text-gray-700 leading-tight">{{ (session.get('nama_lengkap') or session.get('username', 'Admin')).title() }}</p>
+            <p class="text-xs text-blue-600 font-medium tracking-wide">{{ role_label }}</p>
+        </div>
+        <i class="ph ph-caret-down text-sm text-gray-400 hidden sm:block"></i>
+    </div>
+    
+    <!-- Dropdown Menu -->
+    <div id="profile-dropdown-menu" class="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 hidden z-50 transform origin-top-right transition-all">
+        <a href="{{ url_for('profil') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+            <i class="ph ph-user-circle text-lg"></i> Profil Saya
+        </a>
+        <a href="{{ url_for('ganti_password') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+            <i class="ph ph-lock-key text-lg"></i> Ganti Password
+        </a>
+        <a href="{{ url_for('riwayat_login') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors border-b border-gray-100">
+            <i class="ph ph-clock-counter-clockwise text-lg"></i> Riwayat Login
+        </a>
+        <a href="{{ url_for('logout') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
+            <i class="ph ph-sign-out text-lg"></i> Keluar
+        </a>
+    </div>
+</div>
