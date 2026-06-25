@@ -50,10 +50,13 @@ def generate_alasan_dinamis(item, kriteria_list, status_kelayakan):
     relatif = []
     for k in kriteria_list:
         skor = float(item['skor_dinamis'].get(str(k['id']), 3))
-        if k['tipe'] == 'Cost':
-            r = (5.0 - skor) / 4.0
-        else:
-            r = (skor - 1.0) / 4.0
+        max_skor = float(k.get('max_skor', 5) or 5)
+        if max_skor == 0:
+            max_skor = 5.0
+            
+        # Skor di database sudah searah (semakin besar semakin layak) untuk semua tipe.
+        # R bernilai tinggi (mendekati 1.0) berarti kondisi sangat layak.
+        r = (skor - 1.0) / (max_skor - 1.0) if max_skor > 1.0 else skor
         relatif.append((k['nama'], r))
 
     relatif.sort(key=lambda x: x[1], reverse=True)

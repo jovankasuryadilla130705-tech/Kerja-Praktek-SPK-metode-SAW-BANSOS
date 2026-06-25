@@ -32,6 +32,8 @@
 =============================================================================
 """
 
+from functools import wraps
+
 from flask import (
     Flask, render_template, request, redirect,
     url_for, flash, session, send_file, jsonify, send_from_directory
@@ -41,6 +43,7 @@ from sqlalchemy.engine import Engine
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from flask_wtf.csrf import CSRFProtect
 from datetime import datetime
 import pandas as pd
 import os
@@ -92,6 +95,7 @@ if config.USING_SQLITE and not os.path.exists(config.DATABASE_DIR):
 # Hubungkan SQLAlchemy dengan aplikasi Flask.
 db = SQLAlchemy()
 db.init_app(app)
+csrf = CSRFProtect(app)
 
 
 @event.listens_for(Engine, 'connect')
@@ -143,10 +147,12 @@ class User(db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     nama_lengkap = db.Column(db.String(100), nullable=True)
     foto_profil = db.Column(db.String(255), nullable=True)
+    role = db.Column(db.String(20), nullable=False, default='staff')
+    is_active = db.Column(db.Boolean, nullable=False, default=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f'<User {self.username} ({self.role})>'
 
 class LoginHistory(db.Model):
     __tablename__ = 'login_history'
@@ -279,16 +285,42 @@ def init_app():
             conn.commit()
         except Exception:
             pass
+        try:
+            conn.execute(db.text("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'staff'"))
+            conn.commit()
+        except Exception:
+            pass
+        try:
+            conn.execute(db.text("ALTER TABLE users ADD COLUMN is_active INTEGER NOT NULL DEFAULT 1"))
+            conn.commit()
+        except Exception:
+            pass
+
+    # Set semua user lama yang role-nya NULL menjadi 'admin'
+    db.session.execute(db.text("UPDATE users SET role = 'admin' WHERE role IS NULL"))
+    db.session.commit()
 
     # Buat akun admin default jika belum ada di database.
     admin = User.query.filter_by(username=config.DEFAULT_ADMIN_USERNAME).first()
     if not admin:
         admin_baru = User(
             username=config.DEFAULT_ADMIN_USERNAME,
-            password_hash=generate_password_hash(config.DEFAULT_ADMIN_PASSWORD)
+            password_hash=generate_password_hash(config.DEFAULT_ADMIN_PASSWORD),
+            role='admin',
+            is_active=True,
         )
         db.session.add(admin_baru)
         db.session.commit()
+    else:
+        perubahan_admin = False
+        if admin.role != 'admin':
+            admin.role = 'admin'
+            perubahan_admin = True
+        if not admin.is_active:
+            admin.is_active = True
+            perubahan_admin = True
+        if perubahan_admin:
+            db.session.commit()
 
     # Buat folder upload jika belum ada.
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
@@ -357,6 +389,31 @@ def is_logged_in():
     return 'user_id' in session
 
 
+def require_role(*roles):
+    """
+    Decorator untuk membatasi akses route berdasarkan role pengguna.
+    Gunakan setelah pengecekan is_logged_in().
+    """
+    def decorator(f):
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            if not is_logged_in():
+                return redirect(url_for('login_page'))
+            if session.get('role') not in roles:
+                flash('Akses ditolak. Anda tidak memiliki izin untuk halaman ini.', 'error')
+                return redirect(url_for('dashboard'))
+            return f(*args, **kwargs)
+        return wrapper
+    return decorator
+
+
+ROLE_LABELS = {
+    'admin': 'Ketua Staf',
+    'staff': 'Pegawai',
+    'camat': 'Camat',
+}
+
+
 def build_profile_photo_url(path_foto, nama_fallback=None):
     """Bangun URL foto profil dari storage persistent atau avatar fallback."""
     if path_foto:
@@ -414,8 +471,11 @@ def get_data_spk_tersimpan():
 @app.context_processor
 def inject_template_helpers():
     """Sediakan helper kecil untuk template Jinja."""
+    user_role = session.get('role', 'staff')
     return {
         'profile_photo_url': build_profile_photo_url,
+        'user_role': user_role,
+        'role_label': ROLE_LABELS.get(user_role, user_role.title()),
     }
 
 
@@ -460,6 +520,8 @@ def extract_input_klasifikasi(form_data):
             sub = SubKriteria.query.get(sub_id)
             if sub:
                 details[str(krit.id)] = sub.skor
+        else:
+            raise ValueError(f"Pilihan untuk kriteria '{krit.nama}' wajib diisi.")
     return details
 
 
@@ -541,8 +603,8 @@ def baca_dataframe_upload(file_storage):
 
     file_storage.stream.seek(0)
     if ekstensi == '.csv':
-        return pd.read_csv(file_storage.stream), ekstensi
-    return pd.read_excel(file_storage.stream), ekstensi
+        return pd.read_csv(file_storage.stream, dtype={'nik': str, 'no_kk': str}), ekstensi
+    return pd.read_excel(file_storage.stream, dtype={'nik': str, 'no_kk': str}), ekstensi
 
 
 # ===========================================================================
@@ -594,9 +656,10 @@ def login():
     user = User.query.filter_by(username=username).first()
 
     # Verifikasi password menggunakan hash comparison.
-    if user and check_password_hash(user.password_hash, password):
+    if user and user.is_active and check_password_hash(user.password_hash, password):
         session['user_id'] = user.id
         session['username'] = user.username
+        session['role'] = user.role
         
         # Simpan informasi tambahan ke session
         session['nama_lengkap'] = user.nama_lengkap
@@ -644,6 +707,12 @@ def profil():
         if 'foto_profil' in request.files:
             file = request.files['foto_profil']
             if file and file.filename != '':
+                filename_aman = secure_filename(file.filename)
+                ekstensi = os.path.splitext(filename_aman)[1].lower()
+                if ekstensi not in ['.jpg', '.jpeg', '.png']:
+                    flash('Format foto profil harus JPG, JPEG, atau PNG.', 'error')
+                    return redirect(url_for('profil'))
+                    
                 filename = secure_filename(f"{user.id}_{datetime.now().strftime('%Y%m%d%H%M%S')}_{file.filename}")
                 profiles_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'profiles')
                 os.makedirs(profiles_dir, exist_ok=True)
@@ -752,6 +821,7 @@ def dashboard():
 # ===========================================================================
 
 @app.route('/classification', methods=['GET', 'POST'])
+@require_role('admin', 'staff')
 def classification():
     """
     Menampilkan halaman Klasifikasi Data dengan 2 mode input:
@@ -763,8 +833,6 @@ def classification():
       - Jika ada data form → proses manual (Input Manual).
       - Hasil prediksi disimpan ke database, lalu redirect ke Histori.
     """
-    if not is_logged_in():
-        return redirect(url_for('login_page'))
     db_error_redirect = redirect_jika_database_bermasalah('login_page')
     if db_error_redirect:
         return db_error_redirect
@@ -832,7 +900,7 @@ def classification():
                             if sub:
                                 input_klasifikasi[str(krit.id)] = sub.skor
                             else:
-                                input_klasifikasi[str(krit.id)] = 3
+                                raise ValueError(f"Baris data '{str(row['nama'])}' gagal pada kriteria '{krit.nama}'. Nilai '{val_str}' tidak cocok dengan sub-kriteria manapun. Mohon perbaiki data Excel Anda.")
 
                         item_numerik_baru = {
                             'id': 'NEW',
@@ -884,10 +952,14 @@ def classification():
                 return redirect(url_for('history'))
 
         # === Mode 2: Input Manual (Form HTML) ===
-        input_klasifikasi = extract_input_klasifikasi(request.form)
-
         # Guard: pastikan form manual benar-benar diisi (bukan submit kosong).
         if request.form.get('nik'):
+            try:
+                input_klasifikasi = extract_input_klasifikasi(request.form)
+            except ValueError as e:
+                flash(str(e), 'error')
+                return redirect(url_for('classification'))
+                
             nik_val = request.form.get('nik', '').strip()
             no_kk_val = request.form.get('no_kk', '').strip()
 
@@ -950,9 +1022,8 @@ def classification():
 # ===========================================================================
 
 @app.route('/kriteria', methods=['GET', 'POST'])
+@require_role('admin')
 def kriteria():
-    if not is_logged_in():
-        return redirect(url_for('login_page'))
     db_error_redirect = redirect_jika_database_bermasalah('login_page')
     if db_error_redirect:
         return db_error_redirect
@@ -1026,9 +1097,8 @@ def kriteria():
 
 
 @app.route('/sub-kriteria/<int:kriteria_id>', methods=['GET', 'POST'])
+@require_role('admin')
 def sub_kriteria(kriteria_id):
-    if not is_logged_in():
-        return redirect(url_for('login_page'))
     db_error_redirect = redirect_jika_database_bermasalah('login_page')
     if db_error_redirect:
         return db_error_redirect
@@ -1178,10 +1248,9 @@ def api_history():
 
 
 @app.route('/delete/<int:id>', methods=['POST'])
+@require_role('admin', 'staff')
 def delete_record(id):
     """Menghapus satu record klasifikasi berdasarkan ID."""
-    if not is_logged_in():
-        return redirect(url_for('login_page'))
     db_error_redirect = redirect_jika_database_bermasalah('login_page')
     if db_error_redirect:
         return db_error_redirect
@@ -1196,6 +1265,7 @@ def delete_record(id):
 
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
+@require_role('admin', 'staff')
 def edit_record(id):
     """
     Menampilkan dan memproses halaman Edit Data Histori.
@@ -1203,8 +1273,6 @@ def edit_record(id):
     GET  → Menampilkan form edit dengan data record yang ada.
     POST → Menyimpan perubahan, menghitung ulang prediksi SPK (atau override manual).
     """
-    if not is_logged_in():
-        return redirect(url_for('login_page'))
     db_error_redirect = redirect_jika_database_bermasalah('login_page')
     if db_error_redirect:
         return db_error_redirect
@@ -1224,7 +1292,11 @@ def edit_record(id):
             return redirect(url_for('edit_record', id=record.id))
 
         # Ekstrak 6 fitur klasifikasi dari form.
-        input_klasifikasi = extract_input_klasifikasi(request.form)
+        try:
+            input_klasifikasi = extract_input_klasifikasi(request.form)
+        except ValueError as e:
+            flash(str(e), 'error')
+            return redirect(url_for('edit_record', id=record.id))
 
         # Hitung ulang prediksi berdasarkan data baru.
         data_spk = get_data_spk_tersimpan()
@@ -1378,10 +1450,9 @@ def export_excel():
 # ===========================================================================
 
 @app.route('/delete_all', methods=['POST'])
+@require_role('admin')
 def delete_all():
     """Menghapus seluruh record di tabel classification_results."""
-    if not is_logged_in():
-        return redirect(url_for('login_page'))
     db_error_redirect = redirect_jika_database_bermasalah('login_page')
     if db_error_redirect:
         return db_error_redirect
@@ -1395,6 +1466,100 @@ def delete_all():
         flash(f'Terjadi kesalahan saat menghapus data: {str(e)}', 'error')
 
     return redirect(url_for('history'))
+
+
+# ===========================================================================
+#  ROUTE: MANAJEMEN PENGGUNA (Admin Only)
+# ===========================================================================
+
+@app.route('/users')
+@require_role('admin')
+def users():
+    """Menampilkan halaman Manajemen Pengguna untuk Admin."""
+    all_users = User.query.filter_by(is_active=True).order_by(User.created_at.desc()).all()
+    return render_template('users.html', all_users=all_users, role_labels=ROLE_LABELS)
+
+
+@app.route('/users/create', methods=['POST'])
+@require_role('admin')
+def users_create():
+    """Membuat akun pengguna baru."""
+    username = request.form.get('username', '').strip()
+    password = request.form.get('password', '').strip()
+    nama_lengkap = request.form.get('nama_lengkap', '').strip()
+    role = request.form.get('role', 'staff')
+
+    if not username or not password:
+        flash('Username dan password tidak boleh kosong.', 'error')
+        return redirect(url_for('users'))
+
+    if len(password) < 6:
+        flash('Password minimal 6 karakter.', 'error')
+        return redirect(url_for('users'))
+
+    if role not in ROLE_LABELS:
+        flash('Role tidak valid.', 'error')
+        return redirect(url_for('users'))
+
+    existing = User.query.filter_by(username=username).first()
+    if existing:
+        flash(f'Username "{username}" sudah digunakan.', 'error')
+        return redirect(url_for('users'))
+
+    new_user = User(
+        username=username,
+        password_hash=generate_password_hash(password),
+        nama_lengkap=nama_lengkap or None,
+        role=role,
+    )
+    db.session.add(new_user)
+    return simpan_perubahan_db(
+        f'Akun "{username}" berhasil dibuat dengan role {ROLE_LABELS.get(role, role)}.',
+        'users',
+        'Gagal membuat akun baru.'
+    )
+
+
+@app.route('/users/edit-role/<int:id>', methods=['POST'])
+@require_role('admin')
+def users_edit_role(id):
+    """Mengubah role pengguna."""
+    target_user = User.query.get_or_404(id)
+
+    if target_user.id == session.get('user_id'):
+        flash('Tidak dapat mengubah role akun Anda sendiri.', 'warning')
+        return redirect(url_for('users'))
+
+    new_role = request.form.get('role', 'staff')
+    if new_role not in ROLE_LABELS:
+        flash('Role tidak valid.', 'error')
+        return redirect(url_for('users'))
+
+    target_user.role = new_role
+    return simpan_perubahan_db(
+        f'Role "{target_user.username}" berhasil diubah menjadi {ROLE_LABELS.get(new_role, new_role)}.',
+        'users',
+        'Gagal mengubah role pengguna.'
+    )
+
+
+@app.route('/users/delete/<int:id>', methods=['POST'])
+@require_role('admin')
+def users_delete(id):
+    """Menonaktifkan (soft delete) akun pengguna."""
+    target_user = User.query.get_or_404(id)
+
+    if target_user.id == session.get('user_id'):
+        flash('Tidak dapat menghapus akun Anda sendiri.', 'warning')
+        return redirect(url_for('users'))
+
+    # Soft delete: set is_active = False
+    target_user.is_active = False
+    return simpan_perubahan_db(
+        f'Akun "{target_user.username}" berhasil dinonaktifkan.',
+        'users',
+        'Gagal menonaktifkan akun pengguna.'
+    )
 
 
 # ===========================================================================

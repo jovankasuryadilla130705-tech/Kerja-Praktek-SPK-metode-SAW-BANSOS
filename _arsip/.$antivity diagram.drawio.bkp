@@ -1,6 +1,6 @@
 <mxfile host="Electron" pages="23">
   <diagram name="Page-1" id="3MGkRjynRaC3orjs2L-o">
-    <mxGraphModel dx="812" dy="576" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
+    <mxGraphModel dx="2335" dy="1655" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -793,7 +793,7 @@
         <mxCell id="805zQYIEcmWfTfE4fgXB-263" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=15;" value="= Aktivitas / Proses" vertex="1">
           <mxGeometry height="30" width="160" x="310" y="1208" as="geometry" />
         </mxCell>
-        <mxCell id="805zQYIEcmWfTfE4fgXB-264" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=15;" value="" vertex="1">
+        <mxCell id="805zQYIEcmWfTfE4fgXB-264" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=15;" value="Kondisi?" vertex="1">
           <mxGeometry height="50" width="100" x="200" y="1250" as="geometry" />
         </mxCell>
         <mxCell id="805zQYIEcmWfTfE4fgXB-265" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=15;" value="= Keputusan / Kondisi (Decision)" vertex="1">

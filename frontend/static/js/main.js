@@ -340,6 +340,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 var tr = document.createElement('tr');
                 tr.className = 'hover:bg-slate-50 transition-colors';
                 
+                var canEdit = window.USER_ROLE && ['admin', 'staff'].indexOf(window.USER_ROLE) !== -1;
+                var actionHtml = '';
+                if (canEdit) {
+                    actionHtml = `
+                    <td class="py-3 sm:py-4 px-4 sm:px-6 text-center">
+                        <div class="flex items-center justify-center gap-1 sm:gap-2">
+                            <a href="${editUrl}" class="p-1.5 sm:p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit Data">
+                                <i class="ph ph-pencil-simple text-base sm:text-lg"></i>
+                            </a>
+                            <form action="${deleteUrl}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                <button type="submit" class="p-1.5 sm:p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Hapus Data">
+                                    <i class="ph ph-trash text-base sm:text-lg"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>`;
+                }
+                
                 tr.innerHTML = `
                     <td class="py-3 sm:py-4 px-4 sm:px-6 text-center font-bold text-gray-900">${rank}</td>
                     <td class="py-3 sm:py-4 px-4 sm:px-6 whitespace-nowrap">
@@ -367,18 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <td class="py-3 sm:py-4 px-4 sm:px-6 text-xs sm:text-sm text-gray-600 max-w-xs break-words">
                         ${alasanHtml}
                     </td>
-                    <td class="py-3 sm:py-4 px-4 sm:px-6 text-center">
-                        <div class="flex items-center justify-center gap-1 sm:gap-2">
-                            <a href="${editUrl}" class="p-1.5 sm:p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit Data">
-                                <i class="ph ph-pencil-simple text-base sm:text-lg"></i>
-                            </a>
-                            <form action="${deleteUrl}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
-                                <button type="submit" class="p-1.5 sm:p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Hapus Data">
-                                    <i class="ph ph-trash text-base sm:text-lg"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
+                    ${actionHtml}
                 `;
                 
                 historyTableBody.appendChild(tr);
