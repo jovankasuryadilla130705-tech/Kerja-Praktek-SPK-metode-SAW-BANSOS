@@ -1,0 +1,11 @@
+# Narasi Analisis Use Case
+
+Sistem Pendukung Keputusan (SPK) klasifikasi penerima Bantuan Sosial (Bansos) dengan metode Simple Additive Weighting (SAW) dirancang dengan arsitektur *Role-Based Access Control* (RBAC) yang membagi hak akses ke dalam tiga aktor utama: Admin, Staff, dan Camat. Interaksi masing-masing aktor terhadap sistem diatur sedemikian rupa untuk menjaga keamanan dan integritas data, serta memastikan efisiensi operasional.
+
+**Admin (Ketua Staf)** berperan sebagai administrator sistem yang memiliki kendali penuh atas seluruh modul. Admin dapat mengakses fitur autentikasi, meninjau dashboard, dan mengelola seluruh data SPK, termasuk klasifikasi manual maupun via *import* CSV, melihat riwayat, mengedit, serta menghapus data warga. Lebih lanjut, Admin memiliki kewenangan eksklusif pada modul Pengaturan SPK untuk mengelola kriteria, bobot, dan sub kriteria, serta pada modul Pengaturan Pengguna untuk menambah, mengubah, atau menghapus akun pengguna. 
+
+**Staff (Pegawai)** bertindak sebagai operator yang fokus pada operasional harian. Staff berinteraksi dengan sistem untuk melakukan autentikasi, meninjau statistik pada dashboard, dan mengelola data warga (input manual/import CSV, edit, hapus) dalam modul Manajemen Data SPK. Staff juga dapat melakukan proses klasifikasi SAW dan mengekspor laporan.
+
+**Camat** menempati posisi eksekutif dengan hak akses *read-only*. Interaksi Camat terbatas pada modul Autentikasi dan Dashboard, di mana Camat dapat melihat rekap statistik dan grafik visualisasi data bansos sebagai bahan evaluasi dan pengambilan keputusan tanpa dapat memodifikasi data apapun.
+
+Dalam alur sistem, aktivitas autentikasi seperti **Login** merupakan pra-syarat mutlak yang dapat direpresentasikan sebagai relasi `<<include>>` bagi aktivitas utama lainnya (meskipun disembunyikan dalam diagram untuk menjaga kejelasan). Selain itu, terdapat use case yang bersifat kondisional (`<<extend>>`). Contohnya, use case **Ganti Password** adalah perluasan (extend) opsional dari **Kelola Profil**, di mana pengguna hanya mengganti sandi pada kondisi tertentu saat mengelola profilnya. Serupa dengan hal tersebut, use case **Ekspor Laporan** merupakan `<<extend>>` dari **Lihat Riwayat Data Warga**, yang mana opsi ekspor dapat dipicu setelah laporan atau riwayat data warga berhasil ditampilkan.

@@ -1,0 +1,87 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Admin" as Admin
+actor "Staff" as Staff
+actor "Camat" as Camat
+
+rectangle "Sistem Pendukung Keputusan (SPK) Bansos" {
+    
+    package "Autentikasi" {
+        usecase "Login" as UC1
+        usecase "Logout" as UC2
+        usecase "Kelola Profil" as UC3
+        usecase "Ganti Password" as UC4
+        usecase "Riwayat Login" as UC5
+        
+        UC4 .> UC3 : <<extend>>
+    }
+
+    package "Dashboard" {
+        usecase "Lihat rekap statistik data bansos" as UC6
+        usecase "Lihat grafik visualisasi" as UC7
+    }
+
+    package "Manajemen Data SPK" {
+        usecase "Klasifikasi Bansos Manual" as UC8
+        usecase "Klasifikasi Bansos via Import CSV" as UC9
+        usecase "Lihat Riwayat Data Warga" as UC10
+        usecase "Edit Data Warga" as UC11
+        usecase "Hapus Data Warga" as UC12
+        usecase "Ekspor Laporan (Excel/PDF)" as UC13
+        usecase "Lihat Informasi Kriteria" as UC14
+        
+        UC13 .> UC10 : <<extend>>
+    }
+
+    package "Pengaturan SPK" {
+        usecase "Manajemen Kriteria & Bobot" as UC15
+        usecase "Manajemen Sub Kriteria" as UC16
+    }
+
+    package "Pengaturan Pengguna" {
+        usecase "Manajemen Akun" as UC17
+    }
+}
+
+' Relasi Admin
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC5
+Admin --> UC6
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC10
+Admin --> UC11
+Admin --> UC12
+Admin --> UC14
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
+
+' Relasi Staff
+Staff --> UC1
+Staff --> UC2
+Staff --> UC3
+Staff --> UC5
+Staff --> UC6
+Staff --> UC7
+Staff --> UC8
+Staff --> UC9
+Staff --> UC10
+Staff --> UC11
+Staff --> UC12
+Staff --> UC14
+
+' Relasi Camat
+Camat --> UC1
+Camat --> UC2
+Camat --> UC3
+Camat --> UC5
+Camat --> UC6
+Camat --> UC7
+
+@enduml

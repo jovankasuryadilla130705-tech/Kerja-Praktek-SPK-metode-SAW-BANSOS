@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+
+    <!-- System Boundary -->
+    <mxCell id="System" value="Sistem Pendukung Keputusan (SPK) Bansos" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="1">
+      <mxGeometry x="300" y="50" width="1000" height="1000" as="geometry"/>
+    </mxCell>
+
+    <!-- Packages / Swimlanes inside System -->
+    <mxCell id="PkgAuth" value="Autentikasi" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="System">
+      <mxGeometry x="30" y="40" width="940" height="150" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC1" value="Login" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgAuth">
+      <mxGeometry x="50" y="50" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC2" value="Logout" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgAuth">
+      <mxGeometry x="200" y="50" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC3" value="Kelola Profil" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgAuth">
+      <mxGeometry x="350" y="50" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC4" value="Ganti Password" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgAuth">
+      <mxGeometry x="580" y="50" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC5" value="Riwayat Login" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgAuth">
+      <mxGeometry x="780" y="50" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="edge_extend1" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;endSize=12;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="PkgAuth" source="UC4" target="UC3">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="PkgDash" value="Dashboard" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="System">
+      <mxGeometry x="30" y="210" width="940" height="120" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC6" value="Lihat rekap statistik&#10;data bansos" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgDash">
+      <mxGeometry x="50" y="40" width="140" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC7" value="Lihat grafik&#10;visualisasi" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgDash">
+      <mxGeometry x="250" y="40" width="120" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="PkgData" value="Manajemen Data SPK" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="System">
+      <mxGeometry x="30" y="350" width="940" height="300" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC8" value="Klasifikasi Bansos&#10;Manual" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgData">
+      <mxGeometry x="50" y="50" width="140" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC9" value="Klasifikasi Bansos&#10;via Import CSV" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgData">
+      <mxGeometry x="250" y="50" width="140" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC10" value="Lihat Riwayat&#10;Data Warga" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgData">
+      <mxGeometry x="50" y="140" width="140" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC11" value="Edit Data Warga" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgData">
+      <mxGeometry x="250" y="140" width="140" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC12" value="Hapus Data Warga" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgData">
+      <mxGeometry x="450" y="140" width="140" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC14" value="Lihat Informasi&#10;Kriteria" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgData">
+      <mxGeometry x="650" y="140" width="140" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC13" value="Ekspor Laporan&#10;(Excel/PDF)" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgData">
+      <mxGeometry x="50" y="230" width="140" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="edge_extend2" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;endSize=12;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="PkgData" source="UC13" target="UC10">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="PkgSetSPK" value="Pengaturan SPK" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="System">
+      <mxGeometry x="30" y="670" width="940" height="120" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC15" value="Manajemen Kriteria&#10;&amp; Bobot" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgSetSPK">
+      <mxGeometry x="50" y="40" width="140" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC16" value="Manajemen Sub&#10;Kriteria" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgSetSPK">
+      <mxGeometry x="250" y="40" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="PkgSetUser" value="Pengaturan Pengguna" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="System">
+      <mxGeometry x="30" y="810" width="940" height="120" as="geometry"/>
+    </mxCell>
+    <mxCell id="UC17" value="Manajemen Akun" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="PkgSetUser">
+      <mxGeometry x="50" y="40" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <!-- Actors -->
+    <mxCell id="Admin" value="Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+      <mxGeometry x="100" y="150" width="30" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="Staff" value="Staff" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+      <mxGeometry x="100" y="450" width="30" height="60" as="geometry"/>
+    </mxCell>
+    <mxCell id="Camat" value="Camat" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+      <mxGeometry x="100" y="750" width="30" height="60" as="geometry"/>
+    </mxCell>
+
+    <!-- Relationships Admin -->
+    <mxCell id="EA1" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA2" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA3" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA5" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC5"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA6" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC6"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA7" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC7"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA8" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC8"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA9" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC9"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA10" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC10"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA11" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC11"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA12" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC12"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA14" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC14"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA15" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC15"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA16" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC16"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EA17" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Admin" target="UC17"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- Relationships Staff -->
+    <mxCell id="ES1" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ES2" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ES3" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ES5" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC5"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ES6" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC6"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ES7" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC7"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ES8" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC8"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ES9" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC9"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ES10" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC10"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ES11" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC11"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ES12" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC12"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="ES14" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Staff" target="UC14"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+    <!-- Relationships Camat -->
+    <mxCell id="EC1" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Camat" target="UC1"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EC2" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Camat" target="UC2"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EC3" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Camat" target="UC3"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EC5" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Camat" target="UC5"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EC6" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Camat" target="UC6"><mxGeometry relative="1" as="geometry"/></mxCell>
+    <mxCell id="EC7" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="Camat" target="UC7"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+  </root>
+</mxGraphModel>
