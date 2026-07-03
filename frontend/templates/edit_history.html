@@ -49,16 +49,16 @@
                     <i class="ph ph-list text-2xl"></i>
                 </button>
                 <div>
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 ">
                         <!-- Tombol kembali ke halaman Histori -->
                         <a href="{{ url_for('history') }}"
                             class="text-gray-400 hover:text-blue-600 transition-colors"><i
                                 class="ph-bold ph-arrow-left text-xl"></i></a>
                         <h2 class="text-lg lg:text-2xl font-bold text-gray-800">Edit Histori</h2>
                     </div>
-            </div>
+                </div>
 
-            {% include 'partials/_topbar_profile.html' %}
+                {% include 'partials/_topbar_profile.html' %}
         </header>
 
         <!-- Area Konten Dinamis -->
@@ -67,7 +67,7 @@
             <div
                 class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 lg:p-8 max-w-[1200px] animate-fade-in mx-auto">
                 <form action="{{ url_for('edit_record', id=record.id) }}" method="POST" class="space-y-6 lg:space-y-8">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
                     <!-- =====================================================
                       Seksi: Informasi Pribadi (data identitas warga)
@@ -81,14 +81,16 @@
                             <div>
                                 <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 lg:mb-2">NIK
                                     <span class="text-red-500">*</span></label>
-                                <input type="text" name="nik" id="nikInput" value="{{ record.nik }}" maxlength="16" inputmode="numeric"
+                                <input type="text" name="nik" id="nikInput" value="{{ record.nik }}" maxlength="16"
+                                    inputmode="numeric"
                                     class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm sm:text-base"
                                     required>
                             </div>
                             <div>
                                 <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 lg:mb-2">No. KK
                                     <span class="text-red-500">*</span></label>
-                                <input type="text" name="no_kk" id="kkInput" value="{{ record.no_kk }}" maxlength="16" inputmode="numeric"
+                                <input type="text" name="no_kk" id="kkInput" value="{{ record.no_kk }}" maxlength="16"
+                                    inputmode="numeric"
                                     class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm sm:text-base"
                                     required>
                             </div>
@@ -135,18 +137,23 @@
 
                     <!-- Seksi: Kriteria Penilaian Kelayakan Bansos -->
                     <div>
-                        <h3 class="text-base sm:text-lg font-bold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2 border-b border-gray-50 pb-2 mt-2 sm:mt-4">
+                        <h3
+                            class="text-base sm:text-lg font-bold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2 border-b border-gray-50 pb-2 mt-2 sm:mt-4">
                             <i class="ph-fill ph-list-numbers text-blue-500"></i> Kriteria Penilaian
                         </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 bg-blue-50/30 p-4 sm:p-6 rounded-xl border border-blue-50">
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 bg-blue-50/30 p-4 sm:p-6 rounded-xl border border-blue-50">
                             {% for krit in daftar_kriteria %}
                             <div>
-                                <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 lg:mb-2">{{ krit.nama }} <span class="text-red-500">*</span></label>
+                                <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 lg:mb-2">{{
+                                    krit.nama }} <span class="text-red-500">*</span></label>
                                 <select name="kriteria_{{ krit.id }}"
-                                    class="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none cursor-pointer text-sm sm:text-base" required>
+                                    class="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none cursor-pointer text-sm sm:text-base"
+                                    required>
                                     <option value="" disabled>Pilih {{ krit.nama }}...</option>
                                     {% for sub in krit.sub_kriteria|sort(attribute='skor', reverse=True) %}
-                                        <option value="{{ sub.id }}" {% if skor_terpilih.get(krit.id|string) == sub.skor %}selected{% endif %}>{{ sub.nama }}</option>
+                                    <option value="{{ sub.id }}" {% if skor_terpilih.get(krit.id|string)==sub.skor
+                                        %}selected{% endif %}>{{ sub.nama }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
